@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const routeUrls = require('./backend/router/router');
+const routeUrls = require('./router/router');
 const cors = require('cors');
 
 dotenv.config();
-
 mongoose.connect(process.env.DATABASE_ACCESS, ()=>{console.log("connected")});
 
 app.use(express.json());
