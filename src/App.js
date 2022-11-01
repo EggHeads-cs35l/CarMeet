@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./index.css";
+import Routes from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import { FiChevronsDown } from "react-icons/fi";
+function App()
+{
+    return(
+        <>
+        <BrowserRouter>
+        <nav class="navbar navbar-light navbar-expand-md navigation-home">
+          <div class="container">
+            <a href="/">
+            </a>
+            <button
+              data-bs-toggle="collapse"
+              class="navbar-toggler"
+              data-bs-target="#navcol-1"
+            >
+              <span class="visually-hidden">Toggle navigation</span>
+              <span class="">
+              <FiChevronsDown />
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link home-link" href="/home">
+                    Home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link home-link" href="/profile">
+                    My Profile
+                  </a>
+                </li>        
+              </ul>
+            </div>
+            </div>
+            </nav>
+            <Routes />
+            </BrowserRouter>
+        </>
+    );
 }
 
-export default App;
+export default App
