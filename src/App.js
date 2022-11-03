@@ -1,7 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
-
+import SignUp from './backend/API/signup';
 function App() {
+  const hadnle = (fil) =>{
+    d.img1 = fil.target.files[0]
+    SignUp(d)
+  }
+  const d = {
+    name: "asd",
+    email: "wws",
+    password: "asdad",
+    location: "wwww",
+    carModel: "bmw",
+    carType: "sedan",
+    interests: "1 on 1",
+    carBrand: 'whatever'
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +32,7 @@ function App() {
         >
           Learn React
         </a>
+        <input type="file" onChange={hadnle}></input>
       </header>
     </div>
   );
