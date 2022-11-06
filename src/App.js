@@ -24,12 +24,12 @@ function App()
             <div class="collapse navbar-collapse" id="navcol-1">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                  <a class="nav-link home-link" href="/home">
+                  <a class="nav-link home-link" href="/Home">
                     Home
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link home-link" href="/profile">
+                  <a class="nav-link home-link" href="/Profile">
                     My Profile
                   </a>
                 </li>        

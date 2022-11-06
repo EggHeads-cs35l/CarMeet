@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import image1 from "./img1.png";
+import instance from './axios_api';
 
 class Home extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Home extends Component {
     }
   
 
-    /*componentDidMount() {   
+    componentDidMount() {   
         instance
         .get('web-service-home/')
         .then((res) => {
@@ -29,7 +30,7 @@ class Home extends Component {
           .catch((err) => {
             console.log(err);
           });
-    }*/
+    }
     
     render(){
         const { services , special } = this.state;
