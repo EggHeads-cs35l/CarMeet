@@ -1,4 +1,4 @@
-const MAP_MAXIMUM = 128;
+// const MAP_MAXIMUM = 128;
 
 class RadixNode
 {
@@ -11,7 +11,7 @@ class RadixNode
     {
         this.key_partial    =   key_partial;
         this.value          =   value;
-        this.children       =   new Array(MAP_MAXIMUM);  
+        this.children       =   {}
 
         if (value != null)  this.isMatch = true;
         else                this.isMatch = false;
@@ -29,13 +29,16 @@ class RadixTree
     }
 
     /**
-     * Map a character to an integer from 0 to 127
+     * Maps the given letter to something else
+     *  this method only affects the internal storage, the external behavior remains unchanged
+     * @private
      * @param {char} letter 
      * @returns 
      */
-    mapCharacter(letter)
+    #map_character(letter)
     {
-        return letter.charCodeAt(0)- 65;
+        // return letter.charCodeAt(0)- 65;
+        return letter;
     }
 
     /**
@@ -53,7 +56,7 @@ class RadixTree
         if (this.root === null)
         {
             this.root = new RadixNode("");
-            this.root.children[this.mapCharacter(key[0])] = new RadixNode(key, value);
+            this.root.children[this.#map_character(key[0])] = new RadixNode(key, value);
 
             console.log("Empty Tree Return"); return;
         }
@@ -83,7 +86,7 @@ class RadixTree
                     && key[key_partial_loc + identify_char_idx] === node_key_partial[identify_char_idx]; identify_char_idx++);           // find the first letter that differs
             
             if (identify_char_idx < key.length - key_partial_loc)
-                identify_char_mapped = this.mapCharacter(key[key_partial_loc + identify_char_idx]);
+                identify_char_mapped = this.#map_character(key[key_partial_loc + identify_char_idx]);
 
             /*
             * Here, if children[identify_character_idx] already exists, we should move to that node;
@@ -123,14 +126,21 @@ class RadixTree
 
                     if (identify_char_idx < node_key_partial.length)   
                     {
-                        let node_identify_char_idx = this.mapCharacter(node_key_partial[identify_char_idx]);
+                        let node_identify_char_idx = this.#map_character(node_key_partial[identify_char_idx]);
                         let temporary = new RadixNode(node_key_partial.substring(identify_char_idx), curr_node.value);
 
                         // TODO: Improve the efficiency of this
-                        for (let t = 0; t < MAP_MAXIMUM; t++)
+                        /*for (let t = 0; t < MAP_MAXIMUM; t++)
                         {
                             temporary.children[t] = curr_node.children[t];
                             curr_node.children[t] = null;
+                        }*/
+
+                        // Implementation using Dict
+                        for (const [key, value] of Object.entries(curr_node.children))
+                        {
+                            temporary.children[key] = value;
+                            curr_node.children[key] = null;
                         }
 
                         curr_node.children[node_identify_char_idx] = temporary;
@@ -189,10 +199,67 @@ class RadixTree
                 return curr_node.value;
 
             key_partial_loc += node_key.length;
-            identify_char_idx = this.mapCharacter(key[key_partial_loc]);
+            identify_char_idx = this.#map_character(key[key_partial_loc]);
             curr_node = curr_node.children[identify_char_idx];
         }
 
         return null;    // failed to find the value
+    }
+
+    /**
+     * Return the radixnode binding with the given key
+     * @private
+     * @param {string} key 
+     * @return a RadixNode or null
+     */
+    #get_node(key)
+    {
+        if (key.length == 0) return this.root;
+
+        let key_partial_loc = 0;
+        let identify_char_idx;
+        let curr_node = this.root;
+        let node_key = curr_node.key_partial;
+
+        while (curr_node != null && key_partial_loc + (node_key = curr_node.key_partial).length <= key.length)
+        {
+    		// If the key does not match key_partial, there is no result
+            if (key.substring(key_partial_loc, key_partial_loc + node_key.length) !== node_key)
+                return null;
+            // If match
+            else if (key.length == key_partial_loc + node_key.length)
+                return curr_node;
+
+            key_partial_loc += node_key.length;
+            identify_char_idx = this.#map_character(key[key_partial_loc]);
+            curr_node = curr_node.children[identify_char_idx];
+        }
+
+        return null;    // failed to find the value
+    }
+
+    /**
+     * Outputs all possible keys that is the descendants of the key specified
+     * @param {string or RadixNode} key 
+     * @param {string} prefix 
+     * @return [String...]
+     */
+    get_possible_keys(key, result = [], prefix = "")
+    {
+        let node;
+        if (typeof key === "string") {
+            node = this.#get_node(key);
+            if (node === null) return result;
+        }
+        else if (typeof key === "object")
+            node = key;
+
+        if (node.isMatch) result.push(prefix + node.key_partial);
+
+        for (const [key_child, value] of Object.entries(node.children)) {
+            this.get_possible_keys(node.children[key_child], result, prefix + node.key_partial);
+        }
+
+        return result;
     }
 }
