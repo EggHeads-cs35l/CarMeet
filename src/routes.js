@@ -6,8 +6,8 @@ import {Routes, Route} from "react-router-dom";
 const routes=()=>{
     return(
         <Routes>
-            <Route path="/home" component={Home}/>
-            <Route path="/profile" component={Profile}/>
+            <Route path="/Home" component={Home}/>
+            <Route path="/Profile" component={Profile}/>
         </Routes>
     )
 }
