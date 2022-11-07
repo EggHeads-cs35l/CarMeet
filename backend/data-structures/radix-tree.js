@@ -250,11 +250,13 @@ class RadixTree
     {
         let node;
         if (typeof key === "string") {
-            key = this.#autofill_key(key);
+            key = this.autofill_key(key);
             if (key === null) return []; 
-
+            else {
+                prefix = key[1];
+                key = key[0];
+            }
             node = this.#get_node(key);
-            if (!node.isMatch) prefix += key.substring(0, key.length - 1);
         }
         else if (typeof key === "object")
             node = key;
@@ -273,10 +275,11 @@ class RadixTree
      * @param {string} key 
      * @return string
      */
-    #autofill_key(key)
+    autofill_key(key)
     {
         let key_loc = 0;
         let curr_node = this.root;
+        let prefix = '';
 
         while (true)
         {
@@ -284,28 +287,19 @@ class RadixTree
             if (cdr === undefined) return null;
 
             if (cdr.key_partial.length > key.length - key_loc)
-                if (cdr.key_partial.includes(key))
-                    return cdr.key_partial;
+                if (cdr.key_partial.includes(key.substring(key_loc)))
+                    return [key.substring(0, key_loc) + cdr.key_partial, prefix];
                 else return null;
             else if (cdr.key_partial.length == key.length - key_loc)
-                return key;
+                return [key, prefix];
             else {
                 if (key.includes(cdr.key_partial)) {
                     curr_node = cdr;
                     key_loc += cdr.key_partial.length;
+                    prefix += curr_node.key_partial;
                 }
                 else return null;
             }
         }
     }
 }
-
-let r = new RadixTree();
-r.insert("time");
-r.insert("tumble", 1);
-r.insert("timber");
-r.insert("tile");
-r.insert("street");
-console.log(r.get_possible_keys('t'));
-console.log(r.get_possible_keys('ti'));
-console.log(r.get_possible_keys('s'));
