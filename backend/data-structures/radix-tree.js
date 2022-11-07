@@ -47,7 +47,7 @@ class RadixTree
      * @param {any} value 
      * @returns 
      */
-    insert(key, value)
+    insert(key, value = null)
     {
         // Null key case
         if (key.length == 0) {console.log("Null Key Return"); return;}
