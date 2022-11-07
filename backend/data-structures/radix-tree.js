@@ -268,6 +268,11 @@ class RadixTree
         return result;
     }
 
+    /**
+     * Fills the key to the closest match in the RadixTree
+     * @param {string} key 
+     * @return string
+     */
     #autofill_key(key)
     {
         let key_loc = 0;
