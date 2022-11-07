@@ -47,7 +47,7 @@ class RadixTree
      * @param {any} value 
      * @returns 
      */
-    insert(key, value = null)
+    insert(key, value = 0)
     {
         // Null key case
         if (key.length == 0) {console.log("Null Key Return"); return;}
@@ -128,6 +128,7 @@ class RadixTree
                     {
                         let node_identify_char_idx = this.#map_character(node_key_partial[identify_char_idx]);
                         let temporary = new RadixNode(node_key_partial.substring(identify_char_idx), curr_node.value);
+                        temporary.isMatch = curr_node.isMatch;
 
                         // TODO: Improve the efficiency of this
                         /*for (let t = 0; t < MAP_MAXIMUM; t++)
@@ -140,7 +141,7 @@ class RadixTree
                         for (const [key, value] of Object.entries(curr_node.children))
                         {
                             temporary.children[key] = value;
-                            curr_node.children[key] = null;
+                            delete curr_node.children[key];
                         }
 
                         curr_node.children[node_identify_char_idx] = temporary;
@@ -241,6 +242,7 @@ class RadixTree
     /**
      * Outputs all possible keys that is the descendants of the key specified
      * @param {string or RadixNode} key 
+     * @param {boolean} case_sensitive
      * @param {string} prefix 
      * @return [String...]
      */
@@ -248,8 +250,11 @@ class RadixTree
     {
         let node;
         if (typeof key === "string") {
+            key = this.#autofill_key(key);
+            if (key === null) return []; 
+
             node = this.#get_node(key);
-            if (node === null) return result;
+            if (!node.isMatch) prefix += key.substring(0, key.length - 1);
         }
         else if (typeof key === "object")
             node = key;
@@ -262,4 +267,40 @@ class RadixTree
 
         return result;
     }
+
+    #autofill_key(key)
+    {
+        let key_loc = 0;
+        let curr_node = this.root;
+
+        while (true)
+        {
+            let cdr = curr_node.children[key[key_loc]];
+            if (cdr === undefined) return null;
+
+            if (cdr.key_partial.length > key.length - key_loc)
+                if (cdr.key_partial.includes(key))
+                    return cdr.key_partial;
+                else return null;
+            else if (cdr.key_partial.length == key.length - key_loc)
+                return key;
+            else {
+                if (key.includes(cdr.key_partial)) {
+                    curr_node = cdr;
+                    key_loc += cdr.key_partial.length;
+                }
+                else return null;
+            }
+        }
+    }
 }
+
+let r = new RadixTree();
+r.insert("time");
+r.insert("tumble", 1);
+r.insert("timber");
+r.insert("tile");
+r.insert("street");
+console.log(r.get_possible_keys('t'));
+console.log(r.get_possible_keys('ti'));
+console.log(r.get_possible_keys('s'));
