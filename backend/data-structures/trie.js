@@ -77,13 +77,13 @@ class Trie
     }
 
     /**
-     * Search for a node by a key
+     * Get a node by a key
      * TODO: need search to generate the complete key, rather than that of one node
      * @param {string} key 
      * @param {int} typo 
      * @return {TrieNode} or null 
      */
-    search(key, not_require_match = false)
+    get_node(key, not_require_match = false)
     {
         let key_idx     = 0;
         let curr_node   = this.root;
@@ -105,13 +105,25 @@ class Trie
     }
 
     /**
+     * Get value of the given key
+     *  return null if the given key doesn't exist
+     * @param {string} key 
+     * @return {any} value
+     */
+    get(key)
+    {
+        let curr_node = this.get_node(key, false);
+        return curr_node === null ? null : curr_node.value;
+    }
+
+    /**
      * Lists all possible keys beginning with the given key
      * @param {string} key 
      * @return {string}
      */
     get_possible_keys_precise(key)
     {
-        let curr_node   = this.search(key);
+        let curr_node   = this.get_node(key);
         let result      = [];
 
         if (curr_node === null) return result;
@@ -205,7 +217,7 @@ class Trie
      */
     #closest_key(key)
     {
-        let curr_node   = this.search(key, true);
+        let curr_node   = this.get_node(key, true);
         if (curr_node === null) return null;
 
         let stack = [curr_node];
