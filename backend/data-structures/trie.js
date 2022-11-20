@@ -9,17 +9,17 @@ class TrieNode
         this.children       = {};
 
         // additional variables
-        this.childrenKeys   = {};     // contains all keys that children nodes have
+        // this.childrenKeys   = {};     // contains all keys that children nodes have
     }
 
-    get_child_with_key(key)
+    #get_child_with_key(key)
     {   
         for (const [child_key, child] of Object.entries(this.children))
             if (child.childrenKeys[key])
                 return child;
     }
 
-    get_children_with_key(key)
+    #get_children_with_key(key)
     {
         let result = [];
         for (const [child_key, child] of Object.entries(this.children))
@@ -81,9 +81,9 @@ class Trie
      * TODO: need search to generate the complete key, rather than that of one node
      * @param {string} key 
      * @param {int} typo 
-     * @return a TrieNode or null 
+     * @return {TrieNode} or null 
      */
-    search(key, not_require_match = true/*, typo = -1*/)
+    search(key, not_require_match = false)
     {
         let key_idx     = 0;
         let curr_node   = this.root;
@@ -93,18 +93,7 @@ class Trie
             let node_key = this.#map_character(key[key_idx]);
 
             if (!(node_key in curr_node.children))
-            {
-                /*
-                let skip_child_node = curr_node.get_child_with_key(node_key);
-                if (skip_child_node != null && (typo -= 1) != 0) {
-                    curr_node = skip_child_node;
-                    continue;
-                }
-                else return null;
-                */
-
                 return null;
-            }
 
             curr_node = curr_node.children[node_key];
             key_idx += 1;
@@ -118,7 +107,7 @@ class Trie
     /**
      * Lists all possible keys beginning with the given key
      * @param {string} key 
-     * @return string
+     * @return {string}
      */
     get_possible_keys_precise(key)
     {
@@ -149,12 +138,12 @@ class Trie
      *  if typo is a negative number, the method lists all elements in the Trie
      * @param {string} key 
      * @param {int} typo 
-     * @return Array
+     * @return {[string...]}
      */
     get_possible_keys(key, typo = -1)
     {
         let curr_node   = this.root;
-        let prefix      = "";
+        let prefix      = '';
         let key_loc     = 0;
         let result      = new Set();
 
@@ -173,6 +162,16 @@ class Trie
         return Array.from(result);
     }
     
+    /**
+     * Recursion method for get_possible_keys
+     * @helper
+     * @param {string}      key 
+     * @param {int}         key_loc 
+     * @param {TrieNode}    curr_node 
+     * @param {int}         typo 
+     * @param {string}      prefix 
+     * @param {[string...]} result 
+     */
     #get_possible_keys_recur(key, key_loc, curr_node, typo, prefix, result)
     {
         let curr_node_whole_key = prefix + curr_node.key;
@@ -200,6 +199,7 @@ class Trie
 
     /**
      * Return the most approximate key of the given key
+     * @helper
      * @param {string} key 
      * @return string
      */
