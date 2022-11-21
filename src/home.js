@@ -3,7 +3,7 @@ import image1 from "./img1.png";
 import instance from './axios_api';
 
 class Home extends Component {
-    constructor(props) {
+    /*constructor(props) {
       super(props);
       this.state = {
         services: [],
@@ -30,30 +30,33 @@ class Home extends Component {
           .catch((err) => {
             console.log(err);
           });
-    }
+    }*/
     
     render(){
-        const { services , special } = this.state;
+        //const { services , special } = this.state;
     return(
         <>
-        <div class="container" style={{marginTop: '3%'}}>
+        console.log("HIRED");
+        <h1 id="CarMeet">Welcome to CarMeet</h1>
+        <div class="container">
         <div class="row">
-            <div class="col-md-12 col-lg-6">
                 <div class="container"><img src={image1} style={{ width: '100%'}} /></div>
-            </div>
-            <div class="col-md-12 col-lg-6">
-                <div class="container" style={{marginTop: '7%'}}>
+                <div class="container">
                     <div class="base_header"><span><small class="bor_header_left"></small>Welcome to CarMeet: A Community for Car Enthusiasts<small class="bor_header_right"></small></span>
-                        <h3>Meet the perfect driver and their car</h3>
+                        <h1>Meet the perfect driver and their car</h1>
                     </div>
                     <div class="base_footer">
                         <p>There is no better place to find someone with the perfect car. Race with them, just meet up to compare cars or just go for a drive together</p>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
         <br />
+        <div class="page: ">
+            <body>
+                <h2>TESTING</h2>
+            </body>
+        </div>
         </>
     );
     }
