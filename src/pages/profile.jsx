@@ -1,8 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
-import "bootstrap/dist/css/bootstrap.min.css"
 
 function Profile() {
   return (

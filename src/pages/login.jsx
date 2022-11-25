@@ -13,7 +13,7 @@ export default function (props) {
       <div className="login-form-container">
         <form className="login-form">
           <div className="login-form-content">
-            <h3 className="login-form-title">Sign In</h3>
+            <h3 className="login-form-title">Log In</h3>
             <div className="text-center">
               Not registered yet?{" "}
               <span className="link-primary" onClick={changeAuthMode}>
@@ -21,7 +21,7 @@ export default function (props) {
               </span>
             </div>
             <div className="form-group mt-3">
-              <label>Name</label>
+              <label>Username</label>
               <input
                 type="text"
                 className="form-control mt-1"
@@ -51,15 +51,15 @@ export default function (props) {
     <div className="login-form-container">
       <form className="login-form-up">
         <div className="login-form-content">
-          <h3 className="login-form-title">Sign In</h3>
+          <h3 className="login-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
-              Sign In
+              Log In
             </span>
           </div>
           <div className="form-group mt-3">
-            <label>Photo</label>
+            <label>Profile Image</label>
             <input
               type="file"
               accept=".jpeg, .png"
@@ -70,11 +70,11 @@ export default function (props) {
           </div>
           {/*or image submit^^ */}
           <div className="form-group mt-3">
-            <label>Name</label>
+            <label>Username</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="e.g Jane Doe"
+              placeholder="Enter username"
             />
           </div>
           <div className="form-group mt-3">
@@ -82,7 +82,7 @@ export default function (props) {
             <input
               type="password"
               className="form-control mt-1"
-              placeholder="Password"
+              placeholder="Enter password"
             />
           </div>
           <div className="form-group mt-3">
@@ -94,11 +94,11 @@ export default function (props) {
             />
           </div>
           <div className="form-group mt-3">
-            <label>Make of Car</label>
+            <label>Make</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Toyota"
+              placeholder="e.g. Toyota"
             />
           </div>
           <div className="form-group mt-3">
@@ -106,7 +106,7 @@ export default function (props) {
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Supra"
+              placeholder="e.g. Supra"
             />
           </div>
           <div className="form-group mt-3">
@@ -114,7 +114,7 @@ export default function (props) {
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Select from Year dropdown"
+              placeholder="Model year"
             />
           </div>
           <div className="form-group mt-3">
@@ -122,7 +122,7 @@ export default function (props) {
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Dropdown for liters and V"
+              placeholder="Select from dropdown"
             />
           </div>
           <div className="form-group mt-3">

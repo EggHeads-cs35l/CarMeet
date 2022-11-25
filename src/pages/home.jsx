@@ -1,6 +1,6 @@
-import React , {Component} from 'react';
-import image1 from "./img1.png";
-import instance from './axios_api';
+import React, { Component } from 'react';
+import instance from '../api/axios_api';
+import image1 from "../assets/img1.png";
 
 class Home extends Component {
     constructor(props) {
