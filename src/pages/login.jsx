@@ -17,7 +17,7 @@ export default function (props) {
             <div className="text-center">
               Not registered yet?{" "}
               <span className="link-primary" onClick={changeAuthMode}>
-                Sign Up
+                <u>Sign Up</u>
               </span>
             </div>
             <div className="form-group mt-3">
@@ -49,14 +49,22 @@ export default function (props) {
 
   return (
     <div className="login-form-container">
-      <form className="login-form-up">
+      <form className="login-form">
         <div className="login-form-content">
           <h3 className="login-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
-              Log In
+              <u>Log In</u>
             </span>
+          </div>
+          <div className="form-group mt-3">
+            <label>Name</label>
+            <input
+              type="text"
+              className="form-control mt-1"
+              placeholder="First Last"
+            />
           </div>
           <div className="form-group mt-3">
             <label>Profile Image</label>
@@ -86,11 +94,11 @@ export default function (props) {
             />
           </div>
           <div className="form-group mt-3">
-            <label>Location</label>
+            <label>Location (State)</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Select from dropdown"
+              placeholder="e.g. California"
             />
           </div>
           <div className="form-group mt-3">
@@ -115,22 +123,6 @@ export default function (props) {
               type="text"
               className="form-control mt-1"
               placeholder="Model year"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <label>Engine</label>
-            <input
-              type="text"
-              className="form-control mt-1"
-              placeholder="Select from dropdown"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <label>Color</label>
-            <input
-              type="color"
-              className="form-control mt-1"
-              placeholder="E.g Black"
             />
           </div>
           <div className="d-grid gap-2 mt-3">
