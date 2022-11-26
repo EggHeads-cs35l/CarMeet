@@ -1,23 +1,23 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes} from "react-router-dom";
 import Home from "../pages/home";
 import Login from "../pages/login";
-import Profile from "../pages/profile";
+import ProfilePrivate from "../pages/private-profile";
+import ProfilePublic from "../pages/public-profile";
 import Stack from "../pages/stack";
 
-function Router(){
-    return (
-        <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<Login />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/login" element={<Login />} />
-                {/* For testing stack */}
-                <Route path="/stack" element={<Stack />} />
-            </Routes>
-        </BrowserRouter>
-    )
+function Router() {
+  return (
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<ProfilePrivate />} />
+        <Route path="/:user" element={<ProfilePublic />} />
+        <Route path="/login" element={<Login />} />
+        {/* For testing stack */}
+        <Route path="/stack" element={<Stack />} />
+      </Routes>
+  );
 }
 
-export default Router
+export default Router;
