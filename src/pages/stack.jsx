@@ -7,7 +7,7 @@ import ProfilePublic from "../pages/public-profile.jsx";
 export default function Stack() {
   return (
     <div>
-      <ProfilePublic />
+      <ProfilePublic manual="anish" />
     </div>
   );
 }

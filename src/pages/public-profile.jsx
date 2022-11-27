@@ -6,8 +6,7 @@ import image from "../assets/img1.png";
 
 const ProfilePublic = (props) => {
   const { user } = useParams();
-
-  console.log({ user });
+  const id = user === undefined ? props.manual : user;
   return (
     <div
       className="stack"
@@ -22,7 +21,7 @@ const ProfilePublic = (props) => {
         <Card.Img src={image} />
         <Card.Body>
           <Card.Title>
-            <h2>"{user}"</h2>
+            <h2>"{id}"</h2>
           </Card.Title>
           <Card.Subtitle class="mb-2 text-muted">
             <h4>"State"</h4>
