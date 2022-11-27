@@ -3,23 +3,21 @@ class PriorityQueue {
      * Construct the heap with a collection of comparators, evaluated by the order
      * @param {[function]} comparators with default value being an empty list
      */
-    constructor(comparators = []) 
-    {
-        this.array          = [];
-        this.comparators    = comparators;
+    constructor(comparators = []) {
+        this.array = [];
+        this.comparators = comparators;
 
         // Helper method
-        this.compare    = (i1, i2)  => this._compare(this.array[i1], this.array[i2]);
+        this.compare = (i1, i2) => this._compare(this.array[i1], this.array[i2]);
     }
 
     /**
      * Insert elements and optimize heap
      * @runtime O(n * log n)
-     * @param {[any...]} elements 
+     * @param {[any...]} elements
      */
     add() {
-        for (var i = 0; i < arguments.length; i++)
-        {
+        for (var i = 0; i < arguments.length; i++) {
             this.array.push(arguments[i]);
             this.bubbleUp();
         }
@@ -38,7 +36,7 @@ class PriorityQueue {
             // console.log(this.array[idx].age, this.array[this.parent(idx)].age);
             this.swap(this.parent(idx), idx);
             idx = this.parent(idx);
-        } 
+        }
     }
 
     /**
@@ -61,8 +59,8 @@ class PriorityQueue {
     /**
      * Retrieves an element specified by idx (default the head)
      *      return null if the heap is empty
-     * @param {int} idx 
-     * @returns 
+     * @param {int} idx
+     * @returns
      */
     peek(idx = 0) {
         //Empty case
@@ -73,7 +71,7 @@ class PriorityQueue {
     /**
      * Moves element downwards on the Heap, if it's out of order
      * @runtime O(log n)
-     * @param {int} idx 
+     * @param {int} idx
      */
     bubbleDown(idx = 0) {
         let curr = idx;
@@ -117,7 +115,7 @@ class PriorityQueue {
 
     /**
      * Return the index of parent node
-     * @param {int} idx 
+     * @param {int} idx
      * @return index of parent node
      */
     parent(idx) {
@@ -126,7 +124,7 @@ class PriorityQueue {
 
     /**
      * Return child node with highest priority
-     * @param {int} idx 
+     * @param {int} idx
      * @return the child ranked higher
      */
     topChild(idx) {
@@ -157,13 +155,12 @@ class PriorityQueue {
 
     /**
      * Compare two elements, outputs -1 when o1 < o2, 0 when o1 == o2, 1 when o1 > o2
-     * @param {any} o1 
-     * @param {any} o2 
+     * @param {any} o1
+     * @param {any} o2
      * @return -1 0 1
     */
     _compare(o1, o2) {
-        for (var i = 0; i < this.comparators.length; i++)
-        {
+        for (var i = 0; i < this.comparators.length; i++) {
             // Result of this comparator
             var res = this.comparators[i](o1, o2);
 
@@ -171,11 +168,44 @@ class PriorityQueue {
             //      if o1 = o2 by all comparators, break the loop and return 0
             if (res == 0) continue;
 
-            // else 
+            // else
             return res;
         }
 
         // o1 = o2
         return 0;
     }
+
+    /**
+     * Add an arbitrary number of comparators to the instance
+     *  [NOT IMPLEMENTED] this method causes re-sorting of the priority queue if it is not empty
+     * @param {function...} comparators
+     */
+    add_comparators() {
+        for (var i = 0; i < arguments.length; i++)
+            this.comparators.push(arguments[i]);
+    }
+}
+
+/**
+ * Returns data sorted by given comparators
+ * @param {[any...]} data
+ * @param {function...} comparators
+ * @return Array
+ */
+function generate_sorted_stack(data) {
+    let comparators_list = [];
+    for (var i = 1; i < arguments.length; i++)
+        comparators_list.push(arguments[i]);
+
+    let sorted = new PriorityQueue(comparators_list);
+    let result = []
+
+    for (var i = 0; i < data.length; i++)
+        sorted.add(data[i]);
+
+    for (var i = 0; i < data.length; i++)
+        result.push(sorted.remove());
+
+    return result;
 }
