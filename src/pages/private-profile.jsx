@@ -1,8 +1,8 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
-import image from "../assets/img1.png";
 
 function Profile() {
   return (
@@ -12,11 +12,11 @@ function Profile() {
         position: "absolute",
         left: "50%",
         top: "50%",
-        transform: "translate(-50%, -50%)",
+        transform: "translate(-50%, -50%)"
       }}
     >
       <Card style={{ width: "35rem", height: "auto" }}>
-        <Card.Img src={image} />
+        <Card.Img src="https://picsum.photos/1080/720" />
         <Card.Body>
           <Card.Title>
             <h2>"First Last"</h2>
@@ -30,24 +30,21 @@ function Profile() {
             </ListGroup.Item>
             <ListGroup.Item>
               Likes
-              <div class="row">
-                {Array.from({ length: 12 }).map((_, idx) => (
-                  <div class="col-lg">
-                    <Card class="my-2">
-                      <Card.Img variant="top" src="holder.js/100px160" />
+              <Row xs={1} md={2} className="g-4">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                  <Col>
+                    <Card>
+                      <Card.Img variant="top" src="https://picsum.photos/1080/720/"/>
                       <Card.Body>
                         <Card.Title>Card title</Card.Title>
                         <Card.Text>
-                          This is a longer card with supporting text below as a
-                          natural lead-in to additional content. This content is
-                          a little bit longer.
+                          Deets {idx+1}
                         </Card.Text>
                       </Card.Body>
                     </Card>
-                  </div>
+                  </Col>
                 ))}
-              </div>
-              <Row md={2} className="g-4"></Row>
+              </Row>
             </ListGroup.Item>
           </ListGroup>
         </Card.Body>
