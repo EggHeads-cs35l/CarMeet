@@ -80,7 +80,7 @@ class Trie
      * Get a node by a key
      * TODO: need search to generate the complete key, rather than that of one node
      * @param {string} key 
-     * @param {int} typo 
+     * @param {boolean} not_require_match if this is set to true, the method returns null if the given key is not a match
      * @return {TrieNode} or null 
      */
     get_node(key, not_require_match = false)
