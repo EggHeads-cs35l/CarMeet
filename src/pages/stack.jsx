@@ -6,6 +6,8 @@ const like = () => {console.log("like")}
 const dislike = () => {console.log("dislike")}
 
 export default function Stack() {
+  /*TODO: Add search bar*/
+  /*TODO: Add profile button*/
   return (
       <div class="row">
         <div class="col" style={{position:"absolute", left:"15%",top:"50%"}}>
