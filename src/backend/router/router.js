@@ -20,15 +20,16 @@ router.post('/signup',upload.any(), (request, response) => {
    
    const signedUpUser = new signupTemp({
        name: request.body.name,
-       email: request.body.email,
+       username: request.body.username,
        password: request.body.password,
        location: request.body.location,
+       year: request.body.year,
+       mode: request.body.mode,
+       model: request.body.model,
+       make: request.body.make,
        img1: files.img1,
        img2: files.img2,
        img3: files.img3,
-       carBrand: request.body.carBrand,
-       carModel: request.body.carModel,
-       carType: request.body.carType,
        interests: request.body.interests
     })
     signedUpUser.save().then(data=>{

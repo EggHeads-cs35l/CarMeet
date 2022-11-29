@@ -1,14 +1,51 @@
 import React from "react";
+import { useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
+import SignUp from "../backend/API/signup";
 
 export default function Signup(props) {
+  const [data, setData] = useState(null);
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [name, setName] = useState("");
+  const [img, setImg] = useState(null);
+  const [location, setLocation] = useState("");
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
+  const [mode, setMode] = useState(" Mode");
+
   const navigate = useNavigate();
+
+  const handlebutton = (value) =>{
+    if (mode.includes(value))
+      setMode(mode.replace(" " + value, ''))
+    else
+      setMode(mode + " " + value)
+  }
+
+  const handlesubmit =(e) =>{
+    e.preventDefault();
+    const data = {
+      name: name,
+      username: username,
+      password: password,
+      location: location,
+      img1: img,
+      year: year,
+      mode: mode,
+      model: model,
+      make: make,
+    }
+    SignUp(data)
+  }
+
   return (
     <div>
       <div className="login-form-container">
-        <form className="login-form">
+        <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Sign Up</h3>
             <div className="text-center">
@@ -23,6 +60,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Enter username"
+                value = {username}
+                onChange = {(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -31,6 +70,8 @@ export default function Signup(props) {
                 type="password"
                 className="form-control mt-1"
                 placeholder="Enter password"
+                value = {password}
+                onChange = {(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -39,6 +80,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="First Last"
+                value = {name}
+                onChange = {(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -49,6 +92,7 @@ export default function Signup(props) {
                 alt="image of car"
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
+                onChange = {(e) => setImg(e.target.files[0])}
               />
             </div>
             {/*or image submit^^ */}
@@ -59,6 +103,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="e.g. California"
+                value = {location}
+                onChange = {(e) => setLocation(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -67,6 +113,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="e.g. Toyota"
+                value={make}
+                onChange = {(e) => setMake(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -75,6 +123,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="e.g. Supra"
+                value={model}
+                onChange = {(e) => setModel(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -83,6 +133,8 @@ export default function Signup(props) {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Model year"
+                value={year}
+                onChange = {(e) => setYear(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -97,6 +149,7 @@ export default function Signup(props) {
                   id="tbg-check-1"
                   value={1}
                   variant="outline-success"
+                  onClick={() =>{handlebutton("Meet")}}
                 >
                   Meet
                 </ToggleButton>
@@ -104,6 +157,7 @@ export default function Signup(props) {
                   id="tbg-check-2"
                   value={2}
                   variant="outline-success"
+                  onClick={() =>{handlebutton("Race")}}
                 >
                   Race
                 </ToggleButton>
@@ -111,6 +165,7 @@ export default function Signup(props) {
                   id="tbg-check-3"
                   value={3}
                   variant="outline-success"
+                  onClick={() =>{handlebutton("Drift")}} 
                 >
                   Drift
                 </ToggleButton>

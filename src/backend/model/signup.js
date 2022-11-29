@@ -25,23 +25,23 @@ const Profile = new mongoose.Schema({
    },
    carType:{
       type:String,
-      required:true
+      required:false
    },
-   carBrand:{
+   make:{
       type:String,
       required:true
    },
-   carModel:{
+   model:{
       type:String,
-      required:true
+      required:false
    },
    interests:{
       type:String,
-      required:true
+      required:false
    },
    email:{
       type:String,
-      required:true
+      required:false
    },
    date:{
       type:Date,
@@ -51,6 +51,15 @@ const Profile = new mongoose.Schema({
       type:String,
       required:true
    },
+   mode:{
+      type:String,
+      required:false
+   },
+
+   year:{
+      type:String,
+      required:false
+   }
 });
 
 module.exports = mongoose.model('Users', Profile);          
