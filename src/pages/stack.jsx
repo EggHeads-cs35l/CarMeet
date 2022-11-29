@@ -6,10 +6,12 @@ import Search from "../components/search.jsx";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import "./style/stack.css";
+import PriorityQueue from "../backend/data-structures/priority-queue";"../backend/data-structures/trie";
+import Trie from "../backend/data-structures/priority-queue";
 
 export var auto_complete_tree = [];
 
-export default function Stack() {
+async function build_autocomplete_tree() {
   /*TODO: Add search bar*/
   const search_results_stack = PriorityQueue();
 
@@ -23,7 +25,9 @@ export default function Stack() {
     auto_complete_tree_buf.insert(usernames[i]['name']);
 
   auto_complete_tree = auto_complete_tree_buf;
+}
 
+export default function Stack() {
   const navigate = useNavigate();
   const like = () => {
     console.log("like");
