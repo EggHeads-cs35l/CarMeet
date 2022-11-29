@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Login = (props) =>{
-   const [data, setData] = useState(null)
+const Login = (props, setData) =>{
     const loginCredetentials = {
           email: props.email, 
           password: props.password
     }
-   axios.post("http://149.142.75.182:4000/app/login", loginCredetentials)
+   axios.post("http://169.232.189.191:4000/app/login", loginCredetentials)
    .then((response) => {
       if (response.data != null){
          const userData = {
@@ -18,10 +17,9 @@ const Login = (props) =>{
             img2: response.data.img2,
             img3: response.data.img3
          };
-         setData(data)
+         setData(userData)
       }
     });
-    return data;
 }
 
 export default Login;
