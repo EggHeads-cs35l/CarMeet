@@ -3,8 +3,10 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+  const navigate = useNavigate();
   return (
     <div
       className="stack"
@@ -12,7 +14,7 @@ function Profile() {
         position: "absolute",
         left: "50%",
         top: "50%",
-        transform: "translate(-50%, -50%)"
+        transform: "translate(-50%, -50%)",
       }}
     >
       <Card style={{ width: "35rem", height: "auto" }}>
@@ -33,13 +35,15 @@ function Profile() {
               <Row xs={1} md={2} className="g-4">
                 {Array.from({ length: 4 }).map((_, idx) => (
                   <Col>
-                    <Card>
-                      <Card.Img variant="top" src="https://picsum.photos/1080/720/"/>
+                    {/*TODO: Dynamic card loading*/}
+                    <Card onClick={() => navigate("/{title}")}>
+                      <Card.Img
+                        variant="top"
+                        src="https://picsum.photos/1080/720/"
+                      />
                       <Card.Body>
                         <Card.Title>Card title</Card.Title>
-                        <Card.Text>
-                          Deets {idx+1}
-                        </Card.Text>
+                        <Card.Text>Deets {idx + 1}</Card.Text>
                       </Card.Body>
                     </Card>
                   </Col>
