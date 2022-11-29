@@ -9,7 +9,7 @@ import "./style/stack.css";
 import PriorityQueue from "../backend/data-structures/priority-queue"
 import Trie from "../backend/data-structures/trie";
 
-export var auto_complete_tree = [];
+export var auto_complete_tree = new Trie();
 
 async function build_autocomplete_tree() {
   /*TODO: Add search bar*/
@@ -28,6 +28,8 @@ async function build_autocomplete_tree() {
 }
 
 export default function Stack() {
+  build_autocomplete_tree();
+
   const navigate = useNavigate();
   const like = () => {
     console.log("like");
