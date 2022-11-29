@@ -1,11 +1,14 @@
-function USERNAME_NUMERIC_ALPHABETICALLY_ORDER(s1, s2) {
-    return String(s1).localeCompare(String(s2), undefined, { numeric: true });
+export function STRING_LOCALE_COMPARATOR_FACTORY(numeric_sort = true, reverse = false) {
+    reverse = reverse ? -1 : 1;
+    return (s1, s2) => {
+        if (typeof s1 === "string" && typeof s2 === "string")
+            return reverse * s1.localeCompare(s2, undefined, { numeric: numeric_sort });
+    }
 }
 
-function USERNAME_ALPHABETICALLY_ORDER_REVERSE(s1, s2) {
-    return -String(s1).localeCompare(String(s2));
-}
-
-function EMAIL_NUMERIC_ALPHABET_ORDER(e1, e2) {
-    return String(e1).localeCompare(String(e2), undefined, { numeric: true })
+export function DATE_COMPARATOR_FACTORY(ascending = true) {
+    ascending = ascending ? 1 : -1;
+    return (d1, d2) => {
+        return ascending * (Date(d1) - Date(d2));
+    }
 }
