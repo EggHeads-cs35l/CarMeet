@@ -7,7 +7,23 @@ import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import "./style/stack.css";
 
+export var auto_complete_tree = [];
+
 export default function Stack() {
+  /*TODO: Add search bar*/
+  const search_results_stack = PriorityQueue();
+
+  // Mongodb model
+  const user_model = require("../backend/model/signup");
+
+  // Find all users and return their 'name' field
+  const usernames = await user_model.find("name");
+  const auto_complete_tree_buf = new Trie();
+  for (var i = 0; i < usernames.length; i++)
+    auto_complete_tree_buf.insert(usernames[i]['name']);
+
+  auto_complete_tree = auto_complete_tree_buf;
+
   const navigate = useNavigate();
   const like = () => {
     console.log("like");
