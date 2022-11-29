@@ -6,8 +6,8 @@ import Search from "../components/search.jsx";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import "./style/stack.css";
-import PriorityQueue from "../backend/data-structures/priority-queue";"../backend/data-structures/trie";
-import Trie from "../backend/data-structures/priority-queue";
+import PriorityQueue from "../backend/data-structures/priority-queue"
+import Trie from "../backend/data-structures/trie";
 
 export var auto_complete_tree = [];
 
