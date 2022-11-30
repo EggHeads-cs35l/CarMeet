@@ -36,7 +36,7 @@ async function build_sorted_profile_stack() {
         return s1.username.localeCompare(s2.username, {numeric: true});
   }
 
-  const s = generate_sorted_stack(query, USERNAME_NUMERIC_ASCENDING_COMPARATOR);
+  const s = generate_sorted_stack(result, USERNAME_NUMERIC_ASCENDING_COMPARATOR);
   sorted_profile_stack = s;
 }
 
