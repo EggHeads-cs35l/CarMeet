@@ -6,10 +6,12 @@ import Search from "../components/search.jsx";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import "./style/stack.css";
-import PriorityQueue from "../backend/data-structures/priority-queue"
+import {generate_sorted_stack} from "../backend/data-structures/priority-queue";
+import PriorityQueue from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 
 export var auto_complete_tree = new Trie();
+export var sorted_profile_stack = new PriorityQueue();
 
 async function build_autocomplete_tree() {
   // Mongodb model
@@ -24,8 +26,23 @@ async function build_autocomplete_tree() {
   auto_complete_tree = auto_complete_tree_buf;
 }
 
+async function build_sorted_profile_stack() {
+  let userProfile = require('../backend/model/signup');
+  let query = await userProfile.find();
+  let result = query.select("-password");
+
+  const USERNAME_NUMERIC_ASCENDING_COMPARATOR = (s1, s2) => {
+      if (typeof s1.username === 'string' && typeof s2.username === 'string')
+        return s1.username.localeCompare(s2.username, {numeric: true});
+  }
+
+  const s = generate_sorted_stack(result, USERNAME_NUMERIC_ASCENDING_COMPARATOR);
+  sorted_profile_stack = s;
+}
+
 export default function Stack() {
   build_autocomplete_tree();
+  build_sorted_profile_stack();
 
   const navigate = useNavigate();
   const like = () => {

@@ -189,11 +189,11 @@ export default class PriorityQueue {
 
 /**
  * Returns data sorted by given comparators
- * @param {[any...]} data
+ * @param {[any]} data
  * @param {function...} comparators
  * @return Array
  */
-function generate_sorted_stack(data) {
+export function generate_sorted_stack(data) {
     let comparators_list = [];
     for (var i = 1; i < arguments.length; i++)
         comparators_list.push(arguments[i]);
