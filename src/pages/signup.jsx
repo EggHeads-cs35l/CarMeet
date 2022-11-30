@@ -4,6 +4,8 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
 import SignUp from "../backend/API/signup";
+import { CarNoCar } from "./model";
+import * as tf from '@tensorflow/tfjs';
 
 export let ML_result = '';
 
