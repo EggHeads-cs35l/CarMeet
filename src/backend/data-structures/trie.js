@@ -164,10 +164,10 @@ export default class Trie
         if (curr_node.children[node_key])
             this.#get_possible_keys_recur(key, key_loc + 1, curr_node.children[node_key], typo, prefix, result);
 
-        if (key.length == 0 || typo != 0)
+        if (key.length === 0 || typo !== 0)
         {
             for (const [child_key, child] of Object.entries(curr_node.children))
-                if (child_key != node_key)
+                if (child_key !== node_key)
                     this.#get_possible_keys_recur(key, key_loc, child, typo - 1, prefix, result);
         }
 
@@ -200,10 +200,10 @@ export default class Trie
             if (curr_node.children[node_key])
                 this.#get_possible_keys_recur(key, key_loc + 1, curr_node.children[node_key], typo, curr_node_whole_key, result);
 
-            if (key.length == 0 || typo != 0)
+            if (key.length === 0 || typo !== 0)
             {
                 for (const [child_key, child] of Object.entries(curr_node.children))
-                    if (child_key != node_key)
+                    if (child_key !== node_key)
                         this.#get_possible_keys_recur(key, key_loc, child, typo - 1, curr_node_whole_key, result);
             }
         }
