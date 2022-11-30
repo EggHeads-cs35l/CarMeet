@@ -5,7 +5,7 @@ const SignUp = (props) =>{
    Object.keys(props).forEach((key)=>{
     data.append(key,props[key] )
    })
-   axios.post("http://172.28.188.202:4000/app/signup", data, {headers: {
+   axios.post("http://128.97.168.52:4000/app/signup", data, {headers: {
     "Content-Type": "multipart/form-data"
     }
   })
