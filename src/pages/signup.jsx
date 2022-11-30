@@ -4,15 +4,11 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
 import SignUp from "../backend/API/signup";
-import { CarNoCar } from "./model";
-import * as tf from '@tensorflow/tfjs';
-
-export let ML_result = '';
 
 export default function Signup(props) {
   const [data, setData] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const [name, setName] = useState("");
   const [img, setImg] = useState(null);
   const [location, setLocation] = useState("");
@@ -44,58 +40,6 @@ export default function Signup(props) {
       make: make,
     }
     SignUp(data)
-  }
-
-  const verifyImage = async (img) => {
-    // img is the HTMLelement containing the image
-
-    // const resultElement = document.getElementById('result');
-    // resultElement.innerText = 'Loading CNN model...';
-    console.log('Loading CNN model...');
-
-    const imageModel = new CarNoCar();
-    console.time('Loading of model');
-    await imageModel.load();
-    console.timeEnd('Loading of model');
-    const pixels = tf.browser.fromPixels(img);
-    //const results = imageModel.execute(pixels);
-    console.time('First prediction');
-    let result = imageModel.predict(pixels);
-    const topK = imageModel.getTopKClasses(result, 2);
-    console.timeEnd('First prediction');
-
-    // resultElement.innerText = '';
-    let ML_result_buf = "";
-
-    /* Output */
-    topK.forEach(x => {
-      // resultElement.innerText += `${x.value.toFixed(3)}: ${x.label}\n`;
-      ML_result_buf += `${x.value.toFixed(3)}: ${x.label}\n`;
-    });
-
-    ML_result = ML_result_buf;
-
-    /* Check if is car */
-    let target_labels = ["passenger car, coach, carriage", "racer, race car, racing car", "sports car, sport car", "streetcar"];
-    let is_valid_image = false;
-
-    for (var i = 0; i < 3; i++) {
-      // If the image is indeed a car
-      if (topK[i].label in target_labels) {
-        setImg(img.files[0]);
-        is_valid_image = true;
-        break;
-      }
-    }
-
-    // If not a valid car image
-    if (!is_valid_image) {
-      console.log("Not a car");
-
-      // UI changes to notify the user
-    }
-
-    imageModel.dispose();
   }
 
   return (
@@ -148,11 +92,11 @@ export default function Signup(props) {
                 alt="image of car"
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
-                onChange = {(e) => verifyImage(e.target)}
+                onChange = {(e) => setImg(e.target.files[0])}
               />
             </div>
             {/*or image submit^^ */}
-
+            
             <div className="form-group mt-3">
               <label>Location (State)</label>
               <input
@@ -221,7 +165,7 @@ export default function Signup(props) {
                   id="tbg-check-3"
                   value={3}
                   variant="outline-success"
-                  onClick={() =>{handlebutton("Drift")}}
+                  onClick={() =>{handlebutton("Drift")}} 
                 >
                   Drift
                 </ToggleButton>
