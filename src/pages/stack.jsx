@@ -12,9 +12,6 @@ import Trie from "../backend/data-structures/trie";
 export var auto_complete_tree = new Trie();
 
 async function build_autocomplete_tree() {
-  /*TODO: Add search bar*/
-  const search_results_stack = PriorityQueue();
-
   // Mongodb model
   const user_model = require("../backend/model/signup");
 
