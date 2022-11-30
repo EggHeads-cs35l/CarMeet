@@ -45,6 +45,8 @@ export default function Signup(props) {
   }
 
   const verifyImage = async (img) => {
+    // img is the HTMLelement containing the image
+
     // const resultElement = document.getElementById('result');
     // resultElement.innerText = 'Loading CNN model...';
     console.log('Loading CNN model...');
