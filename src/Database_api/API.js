@@ -52,7 +52,17 @@ const SignUp = (props) =>{
 }
 
 const Update = (props) =>{
-
+   const requests = {
+      filter: props.user,
+      updates: props.updates
+   }
+   axios.post("http://" + IP + ":4000/app/update", requests)
+   .then((response) => {
+      return true
+    })
+    .catch(() =>{
+      return false
+    }); 
 }
 
 export {login, Search, Update, SignUp};

@@ -6,7 +6,8 @@ import {
   BsFillPersonFill,
   BsXLg,
 } from "react-icons/bs";
-import { useNavigate, useLocation  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import PriorityQueue, {
   generate_sorted_stack,
 } from "../backend/data-structures/priority-queue";
@@ -33,7 +34,7 @@ async function build_autocomplete_tree() {
   auto_complete_tree = auto_complete_tree_buf;
 }
 
-async function build_sorted_profile_stack() {
+async function build_sorted_profile_stack(data) {
   let userProfile = require("../backend/model/signup");
   let query = await userProfile.find();
   let result = query.select("-password");
@@ -52,8 +53,11 @@ async function build_sorted_profile_stack() {
 
 export default function Stack() {
   const location = useLocation();
+  const data = location.state;
   build_autocomplete_tree();
-  build_sorted_profile_stack();
+
+  const [users, setUsers] = useState(null);
+  Search(setUsers);
 
   const navigate = useNavigate();
   const like = () => {
@@ -73,12 +77,12 @@ export default function Stack() {
         <div class="col-md-7">
           <div className="search" class="d-flex d-flex-inline">
             {/* Search Feature */}
-            <Search placeholder="Search profiles..." data={Data} />
+            <Search placeholder="Search profiles..." data={users} />
             {/* Profile Button */}
             <Button
               variant="outline-primary"
               size="lg"
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate("/profile", {state: data})}
               style={{ position: "absolute", left: "73%", top: "16.5%" }}
             >
               <BsFillPersonFill class="mb-1" />
