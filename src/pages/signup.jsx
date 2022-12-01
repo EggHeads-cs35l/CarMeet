@@ -51,25 +51,35 @@ export default function Signup(props) {
 
     // const resultElement = document.getElementById('result');
     // resultElement.innerText = 'Loading CNN model...';
-    let image_data = new ImageData(img.files[0]);
+    let url = URL.createObjectURL(img.files[0]);           // create an Object URL
+    let image_data = new Image();                         // create a temp. image object
+
+    image_data.onload = function() {                    // handle async image loading
+      URL.revokeObjectURL(url);             // free memory held by Object URL
+    };
+
+    image_data.src = url;
+    image_data.width = 224;
+    image_data.height = 224;
+
     console.log('Loading CNN model...');
 
     const imageModel = new CarNoCar();
-    console.time("Loading of model");
+    console.time('Loading of model');
     await imageModel.load();
     console.timeEnd('Loading of model');
     const pixels = tf.browser.fromPixels(image_data);
     //const results = imageModel.execute(pixels);
-    console.time("First prediction");
+    console.time('First prediction');
     let result = imageModel.predict(pixels);
-    const topK = imageModel.getTopKClasses(result, 2);
-    console.timeEnd("First prediction");
+    const topK = imageModel.getTopKClasses(result, 3);
+    console.timeEnd('First prediction');
 
     // resultElement.innerText = '';
     let ML_result_buf = "";
 
     /* Output */
-    topK.forEach((x) => {
+    topK.forEach(x => {
       // resultElement.innerText += `${x.value.toFixed(3)}: ${x.label}\n`;
       ML_result_buf += `${x.value.toFixed(3)}: ${x.label}\n`;
     });
@@ -77,34 +87,36 @@ export default function Signup(props) {
     ML_result = ML_result_buf;
 
     /* Check if is car */
-    let target_labels = [
-      "passenger car, coach, carriage",
-      "racer, race car, racing car",
-      "sports car, sport car",
-      "streetcar",
-    ];
+    let target_labels = ["passenger car, coach, carriage", "racer, race car, racing car", "sports car, sport car", "streetcar", "convertible"];
     let is_valid_image = false;
+
+    console.log(topK);
 
     for (var i = 0; i < 3; i++) {
       // If the image is indeed a car
-      if (topK[i].label in target_labels) {
-        setImg(img.files[0]);
-        is_valid_image = true;
-        break;
-      }
+      console.log(topK[i]['label']);
+
+      for (var j = 0; j < target_labels.length; j++)
+        if (topK[i]['label'] === target_labels[j]) {
+          setImg(img.files[0]);
+          is_valid_image = true;
+          break;
+        }
     }
 
     // If not a valid car image
     if (!is_valid_image) {
       //console.log("Not a car");
       alert("Please input an image of a car");
-      document.getElementById("form-group mt-3").focus();
-      document.getElementById('form-group mt-3').reset();
+      console.log()
+      let form = document.getElementById("login-form");
+      form.reset();
+      console.log(form);
       // UI changes to notify the user
     }
 
     imageModel.dispose();
-  };
+  }
 
   return (
     <div>
