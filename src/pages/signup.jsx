@@ -108,7 +108,7 @@ export default function Signup(props) {
 
   return (
     <div>
-      <div className="login-form-container">
+      <div className="login-form-container" style={{position:"absolute", top:"50%", transform: "translateY(-50%)", height:"auto"}}>
         <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Sign Up</h3>
