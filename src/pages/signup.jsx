@@ -29,7 +29,7 @@ export default function Signup(props) {
     else
       setMode(mode + " " + value)
   }
-
+  let imageVerified = false;
   const handlesubmit =(e) =>{
     e.preventDefault();
     console.log("gi")
@@ -104,7 +104,7 @@ export default function Signup(props) {
           break;
         }
     }
-
+    
     // If not a valid car image
     if (!is_valid_image) {
       //console.log("Not a car");
@@ -114,6 +114,9 @@ export default function Signup(props) {
       form.reset();
       console.log(form);
       // UI changes to notify the user
+    } else{
+      alert("Image verified");
+      imageVerified = true;
     }
 
     imageModel.dispose();
@@ -162,7 +165,7 @@ export default function Signup(props) {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Profile Image (1080x720 recommended)</label>
+              <label>Profile Image (wait for confirmation)</label>
               <input
                 type="file"
                 accept=".jpeg, .png"

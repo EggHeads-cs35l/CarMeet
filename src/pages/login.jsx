@@ -10,6 +10,7 @@ export default function Login() {
   const submithandler = (e) => {
     e.preventDefault();
     login({ username: username, password: password }, setData);
+    navigate("/stack");
   };
   return (
     <div
@@ -53,7 +54,7 @@ export default function Login() {
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary" onClick={()=>navigate('/stack')}>
+            <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
