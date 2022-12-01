@@ -18,6 +18,7 @@ const login = (props, setData) =>{
          setData(userData)
       }
       else
+         alert("Incorrect username or password")
          setData(null)
     });
 }
@@ -34,7 +35,7 @@ const Search = (setData, props = null) =>{
       }
       else
          setData(null)
-    }); 
+    });
 }
 
 const SignUp = (props) =>{
@@ -65,7 +66,7 @@ const Update = (props) =>{
     })
     .catch(() =>{
       return false
-    }); 
+    });
 }
 
 export {login, Search, Update, SignUp};
