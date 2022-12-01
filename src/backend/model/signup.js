@@ -62,7 +62,7 @@ const Profile = new mongoose.Schema({
    },
 
    likes:{
-      type:String,
+      type:Array,
       required: false,
    }
 });
