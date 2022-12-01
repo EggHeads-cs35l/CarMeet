@@ -13,7 +13,7 @@ import PriorityQueue, {
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
-import {login, Search, Update, SignUp} from "../Database_api/API"
+import {Search} from "../Database_api/API.js";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
@@ -53,13 +53,12 @@ async function build_sorted_profile_stack(data) {
 }
 
 export default function Stack() {
-    build_autocomplete_tree();
+  const location = useLocation();
+  const data = location.state;
+  build_autocomplete_tree();
 
   const [users, setUsers] = useState(null);
   Search(setUsers);
-
-  const location = useLocation();
-  const data = location.state;
 
   const navigate = useNavigate();
   const like = () => {
@@ -69,7 +68,7 @@ export default function Stack() {
     console.log("dislike");
   };
   return (
-    <div class="container">
+    <div class="container" width="auto" style={{overflow: "hidden"}}>
       <div class="row">
         <div style={{ position: "absolute", left: "17%", top: "50%" }}>
           <Button variant="outline-danger" size="lg" onClick={dislike}>

@@ -1,13 +1,10 @@
 import * as tf from "@tensorflow/tfjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
-import { SignUp } from "../Database_api/API.js";
 import { CarNoCar } from "../components/model/model.jsx";
-import {Search} from "../Database_api/API.js";
-
-export let ML_result = "";
+import { Search, SignUp } from "../Database_api/API.js";
 
 export default function Signup(props) {
   const [data, setData] = useState(null);
@@ -20,7 +17,27 @@ export default function Signup(props) {
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [mode, setMode] = useState(" Mode");
-  const [verifyData, setVerifyData] = useState(null);
+  const [verifyData, setVerifyData] = useState("default");
+
+  useEffect(() => {
+    if (verifyData != null && verifyData != "default") {
+      alert("Username already exists");
+    } else {
+      const data = {
+        name: name,
+        username: username,
+        password: password,
+        location: location,
+        img1: img,
+        year: year,
+        mode: mode,
+        model: model,
+        make: make,
+      };
+      SignUp(data);
+      navigate("/login");
+    }
+  }, [verifyData]);
 
   const navigate = useNavigate();
 
@@ -71,30 +88,11 @@ export default function Signup(props) {
   };
 
   const handlesubmit = (e) => {
-    Search(setVerifyData, {username: username});
-    console.log(verifyData);
-    if (verifyData !== null){
-      alert("Username already exists");
-      return;
-    }
     e.preventDefault();
     if (!verify()) {
       return;
     }
-    const data = {
-      name: name,
-      username: username,
-      password: password,
-      location: location,
-      img1: img,
-      year: year,
-      mode: mode,
-      model: model,
-      make: make,
-    };
-    console.log(data.img1);
-    SignUp(data);
-    navigate("/login");
+    Search(setVerifyData, { username: username });
   };
 
   const verifyImage = async (img) => {
@@ -136,13 +134,9 @@ export default function Signup(props) {
       ML_result_buf += `${x.value.toFixed(3)}: ${x.label}\n`;
     });
 
-    ML_result = ML_result_buf;
-
     /* Check if is car */
     let target_label = "car";
     let is_valid_image = false;
-
-    console.log(topK);
 
     console.log(topK[0]["label"]);
     if (topK[0]["label"] === target_label) {
