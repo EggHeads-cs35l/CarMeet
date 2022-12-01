@@ -44,6 +44,7 @@ export default function Signup(props) {
       make: make,
     }
     SignUp(data)
+    navigate("/login")
   }
 
   const verifyImage = async (img) => {
@@ -249,7 +250,7 @@ export default function Signup(props) {
               </ToggleButtonGroup>
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary" /*onClick={()=>navigate('/login')}*/>
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
