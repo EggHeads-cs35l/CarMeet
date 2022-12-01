@@ -90,8 +90,9 @@ export default function Signup(props) {
 
     // If not a valid car image
     if (!is_valid_image) {
-      console.log("Not a car");
-
+      //console.log("Not a car");
+      alert("Please input an image of a car");
+      document.getElementById("form-group mt-3").focus();
       // UI changes to notify the user
     }
 
