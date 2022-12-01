@@ -4,6 +4,16 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./style/profile.css";
+import Button from "react-bootstrap/Button";
+import { BsFillInboxesFill, BsArrowBarLeft } from "react-icons/bs";
+
+function inbox(){
+  return(
+    <div>
+      <p>here</p>
+    </div>
+  )
+}
 
 export default function Profile() {
   const location = useLocation();
@@ -11,6 +21,16 @@ export default function Profile() {
   const navigate = useNavigate();
   return (
     <div className="profile">
+    <div style={{ position: "absolute", left: "17%", top: "5%" }}>
+          <Button variant="outline-danger" size="lg" onClick={() => navigate(-1)}>
+            <BsArrowBarLeft class="mb-1" />
+          </Button>
+    </div>
+    <div style={{ position: "absolute", right: "17%", top: "5%" }}>
+          <Button size="lg" onClick={inbox}>
+            <BsFillInboxesFill class="mb-1" />
+          </Button>
+    </div>
       <Card style={{ width: "35rem", height: "auto" }}>
         <Card.Img src="https://picsum.photos/1080/720" />
         <Card.Body>

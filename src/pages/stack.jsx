@@ -18,6 +18,7 @@ import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
+import Modal from 'react-bootstrap/Modal';
 
 export var auto_complete_tree = new Trie();
 export var sorted_profile_stack = new PriorityQueue();
@@ -67,8 +68,43 @@ export default function Stack() {
   const dislike = () => {
     console.log("dislike");
   };
+
+    //modal stuff
+    const [show, setShow] = useState(false);
+
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleSend = () => {
+      alert("Message sent. You will be notified when the user responds.");
+    }
+    //modal stuff end
   return (
     <div class="container" width="auto" style={{overflow: "hidden"}}>
+    <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Chat</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+          <div class="form-group">
+            <label for="Textarea">Enter Message</label>
+            <textarea class="form-control" id="Textarea" rows="1"></textarea>
+          </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>x
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={event => {handleSend(); handleClose();}}>Send Message</Button>
+        </Modal.Footer>
+      </Modal>
       <div class="row">
         <div style={{ position: "absolute", left: "17%", top: "50%" }}>
           <Button variant="outline-danger" size="lg" onClick={dislike}>
@@ -93,7 +129,7 @@ export default function Stack() {
             <Button
               variant="outline-primary"
               size="lg"
-              /*onClick={() => navigate("/profile")}*/
+              onClick={handleShow}
               style={{ position: "absolute", left: "73%", top: "78%" }}
             >
               <BsFillChatTextFill class="mb-1" />
