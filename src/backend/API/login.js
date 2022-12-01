@@ -11,7 +11,7 @@ const Login = (props, setData) =>{
       if (response.data != null){
          const userData = {
             username: response.data.username,
-            password: response.data.password,
+            email: response.data.email,
          };
          setData(userData)
       }

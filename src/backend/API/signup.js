@@ -6,15 +6,15 @@ const SignUp = (props) =>{
    Object.keys(props).forEach((key)=>{
     data.append(key,props[key] )
    })
-   axios.post("http://localhost:4000/app/signup", data, {headers: {
+   axios.post("http://localgost:4000/app/signup", data, {headers: {
     "Content-Type": "multipart/form-data"
     }
   })
    .then((response) => {
-        return true;
+        return true
     })
     .catch((response) =>{
-      return false;
+      return false
     });
 }
 
