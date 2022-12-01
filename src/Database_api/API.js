@@ -18,19 +18,21 @@ const login = (props, setData) =>{
          console.log(response)
          setData(userData)
       }
+      setData(null)
     });
 }
 
 const Search = (setData, props = null) =>{
    axios.post("http://" + IP + ":4000/app/search", props)
    .then((response) => {
-      if (response.data != null){
+      if (response.data != ''){
          const users = Array()
          for (var user of response.data){
             users.push(user)
          }
          setData(users);
       }
+      setData(null);
     }); 
 }
 
