@@ -8,6 +8,7 @@ import ProfilePrivate from "../pages/private-profile";
 import ProfilePublic from "../pages/public-profile";
 import Signup from "../pages/signup";
 import Stack from "../pages/stack";
+import Chat from "../components/chat";
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/:user" element={<ProfilePublic />} />
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/stack" element={<Stack />} />
+      <Route path="/chat" element={<Chat />}/>
     </Routes>
   );
 }
