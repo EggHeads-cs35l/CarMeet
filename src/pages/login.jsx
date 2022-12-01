@@ -1,5 +1,4 @@
-import React, {useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, Update } from "../Database_api/API";
 
@@ -7,17 +6,20 @@ export var userData;
 
 export default function Login() {
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("default");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const submithandler = (e) => {
     e.preventDefault();
     login({ username: username, password: password }, setData);
   };
-  useEffect(()=>{
-    if (data != null)
-      navigate("/stack", {state: data});
-  },data);
+  useEffect(() => {
+    if (data != null && data != "default") {
+      navigate("/stack", { state: data });
+    } else if (data != "default") {
+      alert("Invalid username or password");
+    }
+  }, [data]);
   return (
     <div
       className="login-form-container"
