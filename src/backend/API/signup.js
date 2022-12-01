@@ -5,12 +5,15 @@ const SignUp = (props) =>{
    Object.keys(props).forEach((key)=>{
     data.append(key,props[key] )
    })
-   axios.post("http://128.97.168.52:4000/app/signup", data, {headers: {
+   axios.post("http://localgost:4000/app/signup", data, {headers: {
     "Content-Type": "multipart/form-data"
     }
   })
    .then((response) => {
-        return response
+        return true
+    })
+    .catch((response) =>{
+      return false
     });
 }
 
