@@ -9,7 +9,7 @@ const login = (props, setData) =>{
             username: response.data.username,
             password: response.data.password,
             location: response.data.location,
-            img: response.data.img1,
+            img1: response.data.img1,
             year: response.data.year,
             mode: response.data.mode,
             model: response.data.model,
@@ -17,9 +17,10 @@ const login = (props, setData) =>{
          };
          setData(userData)
       }
-      else
+      else{
          alert("Incorrect username or password")
          setData(null)
+      }
     });
 }
 
