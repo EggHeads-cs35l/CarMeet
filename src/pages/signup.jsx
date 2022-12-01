@@ -17,9 +17,27 @@ export default function Signup(props) {
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [mode, setMode] = useState(" Mode");
-  const [verifyData, setVerifyData] = useState(null);
+  const [verifyData, setVerifyData] = useState("default");
 
-  useEffect(() => {}, verifyData);
+  useEffect(() => {
+    if (verifyData != null && verifyData != "default") {
+      alert("Username already exists");
+    } else {
+      const data = {
+        name: name,
+        username: username,
+        password: password,
+        location: location,
+        img1: img,
+        year: year,
+        mode: mode,
+        model: model,
+        make: make,
+      };
+      SignUp(data);
+      navigate("/login");
+    }
+  }, [verifyData]);
 
   const navigate = useNavigate();
 
@@ -70,29 +88,11 @@ export default function Signup(props) {
   };
 
   const handlesubmit = (e) => {
-    Search(setVerifyData, { username: username });
-    console.log(verifyData);
-    if (verifyData !== null) {
-      alert("Username already exists");
-      return;
-    }
     e.preventDefault();
     if (!verify()) {
       return;
     }
-    const data = {
-      name: name,
-      username: username,
-      password: password,
-      location: location,
-      img1: img,
-      year: year,
-      mode: mode,
-      model: model,
-      make: make,
-    };
-    SignUp(data);
-    navigate("/login");
+    Search(setVerifyData, { username: username });
   };
 
   const verifyImage = async (img) => {
