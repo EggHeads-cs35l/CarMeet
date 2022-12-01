@@ -12,6 +12,13 @@ const Login = (props, setData) =>{
          const userData = {
             username: response.data.username,
             email: response.data.email,
+            name: name,
+            location: location,
+            img1: img,
+            year: year,
+            mode: mode,
+            model: model,
+            make: make,
          };
          setData(userData)
       }
