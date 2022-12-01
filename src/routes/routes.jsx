@@ -7,6 +7,7 @@ import Login from "../pages/login";
 import ProfilePrivate from "../pages/private-profile";
 import Signup from "../pages/signup";
 import Stack from "../pages/stack";
+import View from "../pages/view"
 
 function Router() {
   return (
