@@ -1,3 +1,4 @@
+import * as tf from "@tensorflow/tfjs"
 import React from "react";
 import { useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -107,7 +108,7 @@ export default function Signup(props) {
 
   return (
     <div>
-      <div className="login-form-container" style={{position:"absolute", top:"50%", transform: "translateY(-50%)", height:"auto"}}>
+      <div className="login-form-container">
         <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Sign Up</h3>

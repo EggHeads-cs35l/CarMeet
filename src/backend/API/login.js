@@ -17,10 +17,6 @@ const Login = (props, setData) =>{
          };
          setData(userData)
       }
-      else{
-         alert("Please fill the sign-up form.");
-         document.getElementById("login-form-container").focus();
-      }
     });
 }
 
