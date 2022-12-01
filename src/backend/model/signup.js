@@ -59,6 +59,11 @@ const Profile = new mongoose.Schema({
    year:{
       type:String,
       required:false
+   },
+
+   likes:{
+      type:String,
+      required: false,
    }
 });
 

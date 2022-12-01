@@ -7,8 +7,8 @@ import SignUp from "../backend/API/signup";
 
 export default function Signup(props) {
   const [data, setData] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const [name, setName] = useState("");
   const [img, setImg] = useState(null);
   const [location, setLocation] = useState("");
@@ -33,7 +33,7 @@ export default function Signup(props) {
       username: username,
       password: password,
       location: location,
-      img1: img,
+      img: img,
       year: year,
       mode: mode,
       model: model,
@@ -92,11 +92,11 @@ export default function Signup(props) {
                 alt="image of car"
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
-                onChange = {(e) => verifyImage(e.target)}
+                onChange = {(e) => setImg(e.target.files[0])}
               />
             </div>
             {/*or image submit^^ */}
-
+            
             <div className="form-group mt-3">
               <label>Location (State)</label>
               <input
@@ -165,7 +165,7 @@ export default function Signup(props) {
                   id="tbg-check-3"
                   value={3}
                   variant="outline-success"
-                  onClick={() =>{handlebutton("Drift")}}
+                  onClick={() =>{handlebutton("Drift")}} 
                 >
                   Drift
                 </ToggleButton>
