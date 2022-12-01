@@ -6,7 +6,7 @@ import {
   BsFillPersonFill,
   BsXLg,
 } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation  } from "react-router-dom";
 import PriorityQueue, {
   generate_sorted_stack,
 } from "../backend/data-structures/priority-queue";
@@ -14,6 +14,7 @@ import Trie from "../backend/data-structures/trie";
 import Search from "../components/search.jsx";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
+import { userData } from "./login";
 import "./style/stack.css";
 
 export var auto_complete_tree = new Trie();
@@ -50,6 +51,7 @@ async function build_sorted_profile_stack() {
 }
 
 export default function Stack() {
+  const location = useLocation();
   build_autocomplete_tree();
   build_sorted_profile_stack();
 
