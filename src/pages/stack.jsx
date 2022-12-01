@@ -13,7 +13,7 @@ import PriorityQueue, {
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
-import {Search} from "../Database_api/API.js";
+import {Search, Update} from "../Database_api/API.js";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
@@ -79,10 +79,21 @@ export default function Stack() {
     //modal stuff
     const [show, setShow] = useState(false);
 
-  
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleSend = () => {
+      Update ({
+              user:{ username: "aasd"},
+              updates: {
+              $push:{
+                messages:{
+                  username: "tejas",
+                  message: "test",
+                }
+              }
+            }});
+
       alert("Message sent. You will be notified when the user responds.");
     }
     //modal stuff end

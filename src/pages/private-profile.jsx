@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useNavigate, useLocation } from "react-router-dom";
-import {Search} from "../Database_api/API.js";
+import {Search, Update} from "../Database_api/API.js";
 import "./style/profile.css";
 import Button from "react-bootstrap/Button";
 import { BsFillInboxesFill, BsArrowBarLeft } from "react-icons/bs";
@@ -11,36 +11,20 @@ import {Component} from "react"
 
 import Modal from 'react-bootstrap/Modal';
 
-function inbox(){
-  return(
-    <div>
-      <p>here</p>
-    </div>
-  )
-}
 
 export default function Profile() {
-    const messages = [("hello world", "user 1"), ("hello world", "user 2"), ("hello world", "user 3")];
-    const listMessages = messages.map((message) =>
-      <div key={message.toString()}>
-        {message}
-      </div>
-    );
-
-    //modal stuff
-    const [show, setShow] = useState(false);
-
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    //modal stuff end
 
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
+
+
+
   const top = []
   let testData = {username: "none", name: "Find Some Friends"}
+
+  Search(setData, {username:"aasd"});
   if (userData.likes == null){
     for (let i = 0; i < 4; i++){
       top.push(testData)
@@ -67,12 +51,93 @@ export default function Profile() {
       return navigate("/view", {state: inData})
     }
   }
+  //reply stuff
+  const [show, setShow] = useState(false);
+  const handleCloseReply = () => setShow(false);
+  const handleShowReply = () => setShow(true);
+  const handleSendReply = () => {
+    Update ({
+            user:{ username: "aasd"},
+            updates: {
+            $push:{
+              messages:{
+                username: "tejas",
+                message: "test",
+              }
+            }
+          }});
+    alert("Message sent. You will be notified when the user responds.");
+  }
+  //reply stuff end
+
+  //const messages = userData.messages;
+
+  useEffect(() => {
+
+    if(data != null){
+      console.log("HEY");
+      console.log(data[0]);
+      console.log(data[0].messages);
+      setAllMessages(data[0].messages)
+    }
+
+  }, [data]);
+  const [allMessages, setAllMessages] = useState([{message: '', username: ''}])
+  const messages = [{message: 'Sick car bro', username: 'John'}, {message: 'Damn.', username: 'Jane'}, {message: 'LOL', username: 'George'}];
+  const listMessages = allMessages.map(message =>
+    <Card key={message.message.toString()}>
+    <Card.Body>{message.message}</Card.Body>
+
+    <footer align = "right">
+      {'- ' + message.username}
+    </footer>
+    <Button variant = "primary" onClick={handleShowReply}>
+      Reply
+    </Button>
+    </Card>
+
+  );
+
+  //inbox stuff
+  const [showInbox, setShowInbox] = useState(false);
+
+  const fetchMessages = () => Search(setData, {username:"aasd"});
+  const handleCloseInbox = () => setShowInbox(false);
+  const handleShowInbox = () => setShowInbox(true);
+  //Inbox end
+
+
 
   return (
     <div className="profile">
     <Modal
         show={show}
-        onHide={handleClose}
+        onHide={handleCloseReply}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Reply</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+          <div class="form-group">
+            <label for="Textarea">Enter Message</label>
+            <textarea class="form-control" id="Textarea" rows="1"></textarea>
+          </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseReply}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={event => {handleSendReply(); handleCloseReply();}}>Reply</Button>
+        </Modal.Footer>
+      </Modal>
+
+    <Modal
+        show={showInbox}
+        onHide={handleCloseInbox}
         backdrop="static"
         keyboard={false}
       >
@@ -101,7 +166,7 @@ export default function Profile() {
     </div>
 
     <div style={{ position: "absolute", right: "17%", top: "5%" }}>
-          <Button size="lg" onClick={handleShow}>
+          <Button size="lg" onClick={event => {handleShowInbox(); fetchMessages();}}>
             <BsFillInboxesFill class="mb-1" />
           </Button>
     </div>

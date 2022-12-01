@@ -36,7 +36,7 @@ const Search = (setData, props = null) =>{
       }
       else
          setData(null)
-    }); 
+    });
 }
 
 const SignUp = (props) =>{

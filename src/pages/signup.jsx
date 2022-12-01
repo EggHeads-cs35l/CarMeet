@@ -28,10 +28,7 @@ export default function Signup(props) {
         username: username,
         password: password,
         location: location,
-        img1: {
-          data:img,
-          type:img.type
-        },
+        img1: img,  
         year: year,
         mode: mode,
         model: model,
