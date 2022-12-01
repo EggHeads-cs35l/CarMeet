@@ -18,6 +18,7 @@ import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from "react";
 
 export var auto_complete_tree = new Trie();
 export var sorted_profile_stack = new PriorityQueue();
@@ -58,7 +59,14 @@ export default function Stack() {
   build_autocomplete_tree();
 
   const [users, setUsers] = useState(null);
-  Search(setUsers);
+
+  // get a list of all users from database using useEffect
+  useEffect(() => {
+    if (users == null)
+      Search(setUsers);
+    },[users])
+  console.log(users);
+  
 
   const navigate = useNavigate();
   const like = () => {
@@ -97,7 +105,7 @@ export default function Stack() {
           </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>x
+        <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -134,7 +142,7 @@ export default function Stack() {
               <BsFillChatTextFill class="mb-1" />
             </Button>
           </div>
-          {/* true stack */}
+          {/*TODO: true stack */}
           <ProfilePublic className="profile" name="anish" state="California" year="2012" make="Toyota" model="Supra"  />
         </div>
         <div style={{ position: "absolute", left: "78%", top: "50%" }}>

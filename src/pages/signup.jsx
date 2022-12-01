@@ -208,7 +208,7 @@ export default function Signup(props) {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Profile Image (wait for confirmation)</label>
+              <label>Profile Image (1080p recommended)</label>
               <input
                 type="file"
                 accept=".jpeg, .png"
