@@ -5,6 +5,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
 import { SignUp } from "../Database_api/API.js";
 import { CarNoCar } from "../components/model/model.jsx";
+import {Search} from "../Database_api/API.js";
 
 export let ML_result = "";
 
@@ -19,6 +20,7 @@ export default function Signup(props) {
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [mode, setMode] = useState(" Mode");
+  const [verifyData, setVerifyData] = useState(null);
 
   const navigate = useNavigate();
 
@@ -69,6 +71,12 @@ export default function Signup(props) {
   };
 
   const handlesubmit = (e) => {
+    Search(setVerifyData, {username: username});
+    console.log(verifyData);
+    if (verifyData !== null){
+      alert("Username already exists");
+      return;
+    }
     e.preventDefault();
     if (!verify()) {
       return;

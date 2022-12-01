@@ -12,7 +12,8 @@ import PriorityQueue, {
   generate_sorted_stack,
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
-import Search from "../components/search.jsx";
+import SearchBox from "../components/search.jsx";
+import {login, Search, Update, SignUp} from "../Database_api/API"
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
@@ -52,12 +53,13 @@ async function build_sorted_profile_stack(data) {
 }
 
 export default function Stack() {
-  const location = useLocation();
-  const data = location.state;
-  build_autocomplete_tree();
+    build_autocomplete_tree();
 
   const [users, setUsers] = useState(null);
   Search(setUsers);
+
+  const location = useLocation();
+  const data = location.state;
 
   const navigate = useNavigate();
   const like = () => {
@@ -77,7 +79,7 @@ export default function Stack() {
         <div class="col-md-7">
           <div className="search" class="d-flex d-flex-inline">
             {/* Search Feature */}
-            <Search placeholder="Search profiles..." data={users} />
+            <SearchBox placeholder="Search profiles..." data={users} />
             {/* Profile Button */}
             <Button
               variant="outline-primary"
