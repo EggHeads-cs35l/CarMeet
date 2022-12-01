@@ -1,26 +1,16 @@
 import axios from "axios";
 
-const Login = (props, setData) =>{
-    const loginCredetentials = {
-          email: props.email, 
-          password: props.password
-    }
-   axios.post("http://169.232.189.191:4000/app/login", loginCredetentials)
+const Search = (setData, props = null) =>{
+   axios.post("http://131.179.49.113:4000/app/search", {})
    .then((response) => {
       if (response.data != null){
-         const userData = {
-            username: response.data.username,
-            password: response.data.password,
-            location: response.data.location,
-            img: response.data.img1,
-            year: response.data.year,
-            mode: response.data.mode,
-            model: response.data.model,
-            make: response.data.make,
-         };
-         setData(userData)
+         const users = Array()
+         for (var user of response.data){
+            users.push(user)
+         }
+         setData(users);
       }
     });
 }
 
-export default Login;
+export default Search;
