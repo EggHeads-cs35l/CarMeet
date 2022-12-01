@@ -15,7 +15,7 @@ export default function Profile() {
         <Card.Img src="https://picsum.photos/1080/720" />
         <Card.Body>
           <Card.Title>
-            <h2>{userData.name}</h2>
+            <h2>{userData.username}</h2>
           </Card.Title>
           <Card.Subtitle class="mb-2 text-muted">
             <h4>{userData.location}</h4>
