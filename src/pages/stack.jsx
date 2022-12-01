@@ -13,7 +13,7 @@ import PriorityQueue, {
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
-import {login, Search, Update, SignUp} "../Database_api/API"
+import {login, Search, Update, SignUp} from "../Database_api/API"
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
@@ -56,7 +56,7 @@ export default function Stack() {
     build_autocomplete_tree();
 
   const [users, setUsers] = useState(null);
-  SearchDB(setUsers);
+  Search(setUsers);
 
   const location = useLocation();
   const data = location.state;
