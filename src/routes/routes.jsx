@@ -8,7 +8,6 @@ import ProfilePrivate from "../pages/private-profile";
 import ProfilePublic from "../pages/public-profile";
 import Signup from "../pages/signup";
 import Stack from "../pages/stack";
-import Chat from "../components/chat";
 
 function Router() {
   return (
