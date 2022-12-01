@@ -154,13 +154,8 @@ export default function Stack() {
                 message: "test",
               }
             }
-          }});
+          }});};
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleSend = () => {
-    alert("Message sent. You will be notified when the user responds.");
-  }
   //modal stuff end
   return (
     <div class="container" width="auto" style={{ overflow: "hidden" }}>
