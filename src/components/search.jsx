@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./style/search.css";
 
 /*Credits to Pedro Maachado (https://github.com/machadop1407) for tutorial video*/
-export default function Search({ placeholder, data }) {
+export default function ({ placeholder, data }) {
   const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
