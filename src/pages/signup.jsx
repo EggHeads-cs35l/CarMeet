@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
-import SignUp from "../backend/API/signup";
+import { SignUp } from "../Database_api/API.js";
 import { CarNoCar } from "../components/model/model.jsx";
 
 export let ML_result = "";

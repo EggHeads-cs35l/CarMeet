@@ -1,8 +1,7 @@
 import React, {useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { default as login } from "../backend/API/login";
-import { default as Search} from "../backend/API/search";
+import { login } from "../Database_api/API";
 
 export var userData;
 
