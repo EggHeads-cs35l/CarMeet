@@ -24,7 +24,7 @@ export default function Profile() {
   const top = []
   let testData = {username: "none", name: "Find Some Friends"}
 
-  Search(setData, {username:"aasd"});
+
   if (userData.likes == null){
     for (let i = 0; i < 4; i++){
       top.push(testData)
@@ -74,27 +74,32 @@ export default function Profile() {
 
   useEffect(() => {
 
-    if(data != null){
+    if(data == null){
+      Search(setData, {username:"aasd"});
+    }
+    else {
       console.log("HEY");
-      console.log(data[0]);
+      console.log(data);
       console.log(data[0].messages);
-      setAllMessages(data[0].messages)
+      setAllMessages(data[0].messages);
     }
 
   }, [data]);
-  const [allMessages, setAllMessages] = useState([{message: '', username: ''}])
+  const [allMessages, setAllMessages] = useState([{message: 'loading messages', username: ''}])
   const messages = [{message: 'Sick car bro', username: 'John'}, {message: 'Damn.', username: 'Jane'}, {message: 'LOL', username: 'George'}];
   const listMessages = allMessages.map(message =>
-    <Card key={message.message.toString()}>
-    <Card.Body>{message.message}</Card.Body>
 
-    <footer align = "right">
-      {'- ' + message.username}
-    </footer>
-    <Button variant = "primary" onClick={handleShowReply}>
-      Reply
-    </Button>
-    </Card>
+      <Card key={message.username.toString()}>
+      <Card.Body>{message.message}</Card.Body>
+
+      <footer align = "right">
+        {'- ' + message.username}
+      </footer>
+      <Button variant = "primary" onClick={handleShowReply}>
+        Reply
+      </Button>
+      </Card>
+
 
   );
 

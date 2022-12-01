@@ -80,7 +80,7 @@ export default function Stack() {
   useEffect(() => {
     async function loadStackProfiles() {
       const componentPromises = stackUsers.map(async userInfo => {
-        const View = <div id={userInfo.username}> 
+        const View = <div id={userInfo.username}>
           < ProfilePublic className = "profile" name = { userInfo.name } state = { userInfo.location } year = { userInfo.year } make = { userInfo.make } model = { userInfo.model } />
         </div>
         return View;
@@ -105,7 +105,7 @@ export default function Stack() {
       console.log(stackUsers);
     }
 
-  }, [stackUsers]); 
+  }, [stackUsers]);
 
   const navigate = useNavigate();
   const like = () => {
@@ -138,9 +138,23 @@ export default function Stack() {
     console.log("dislike");
   };
 
-  //modal stuff
+  //modal stuff SEND MESSAGE
   const [show, setShow] = useState(false);
 
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleSend = () => {
+    Update ({
+            user:{ username: "aasd"},
+            updates: {
+            $push:{
+              messages:{
+                username: "tejas",
+                message: "test",
+              }
+            }
+          }});
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
