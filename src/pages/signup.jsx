@@ -28,41 +28,41 @@ export default function Signup(props) {
   };
 
   // create verification boolean
-  const verify = () => {  
+  const verify = () => {
     if (username === "") {
-      alert("Username cannot be empty");
+      alert("Please enter a username");
       return false;
     }
     if (password === "") {
-      alert("Password cannot be empty");
+      alert("Please enter a password");
       return false;
     }
     if (name === "") {
-      alert("Name cannot be empty");
+      alert("Please enter your name");
       return false;
     }
     if (location === "") {
-      alert("Location cannot be empty");
+      alert("Please enter your location");
       return false;
     }
     if (make === "") {
-      alert("Make cannot be empty");
+      alert("Pleaase enter your car's make");
       return false;
     }
     if (model === "") {
-      alert("Model cannot be empty");
+      alert("Please enter your car's model");
       return false;
     }
     if (year === "") {
-      alert("Year cannot be empty");
+      alert("Please enter your car's year");
       return false;
     }
     if (img === null) {
-      alert("Image must contain a car");
+      alert("Please upload a picture of your car");
       return false;
     }
     if (mode === " Mode") {
-      alert("Mode cannot be empty");
+      alert("Please select a mode");
       return false;
     }
     return true;
@@ -70,7 +70,9 @@ export default function Signup(props) {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    if (!verify()) {return}
+    if (!verify()) {
+      return;
+    }
     const data = {
       name: name,
       username: username,
@@ -258,7 +260,7 @@ export default function Signup(props) {
               <br></br>
               <ToggleButtonGroup
                 type="checkbox"
-                defaultValue={1}
+                defaultValue={0}
                 className="mb-2"
               >
                 <ToggleButton
