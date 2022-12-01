@@ -18,7 +18,8 @@ const login = (props, setData) =>{
          console.log(response)
          setData(userData)
       }
-      setData(null)
+      else
+         setData(null)
     });
 }
 
@@ -32,7 +33,8 @@ const Search = (setData, props = null) =>{
          }
          setData(users);
       }
-      setData(null);
+      else
+         setData(null)
     }); 
 }
 
