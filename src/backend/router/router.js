@@ -17,7 +17,6 @@ router.post('/signup',upload.any(), (request, response) => {
          contentType: i.mimetype
       }
    }
-   
    const signedUpUser = new signupTemp({
        name: request.body.name,
        username: request.body.username,
@@ -28,9 +27,6 @@ router.post('/signup',upload.any(), (request, response) => {
        model: request.body.model,
        make: request.body.make,
        img1: files.img1,
-       img2: files.img2,
-       img3: files.img3,
-       interests: request.body.interests
     })
     signedUpUser.save().then(data=>{
        response.json(data);

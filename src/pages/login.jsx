@@ -5,11 +5,11 @@ import { default as login } from "../backend/API/login";
 export default function Login() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const submithandler = (e) => {
     e.preventDefault();
-    login({ email: email, password: password }, setData);
+    login({ username: username, password: password }, setData);
   };
   return (
     <div
@@ -36,8 +36,8 @@ export default function Login() {
               type="text"
               name="email"
               className="form-control mt-1"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter username"
             />
           </div>

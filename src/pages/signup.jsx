@@ -32,12 +32,12 @@ export default function Signup(props) {
 
   const handlesubmit =(e) =>{
     e.preventDefault();
+    console.log("gi")
     const data = {
       name: name,
       username: username,
       password: password,
       location: location,
-      img1: img,
       year: year,
       mode: mode,
       model: model,
