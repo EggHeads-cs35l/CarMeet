@@ -39,7 +39,7 @@ router.post('/signup',upload.any(), (request, response) => {
 
  router.post('/login', (request,response) => {
     signupTemp.findOne({   
-       email: request.body.email,
+       username: request.body.usrname,
        password: request.body.password
     }).then(data => {
       response.json(data);
@@ -47,6 +47,17 @@ router.post('/signup',upload.any(), (request, response) => {
        response.send("Error");
        console.log(err);
     })
+ });
  
+ router.post('/search', (request,response) => {
+    signupTemp.find({   
+       email: request.body.email,
+       password: request.body.password
+    }).then().select('-password').then(data =>{
+       response.send(data);
+    }).catch(err =>{
+       response.send("Error");
+       console.log(err);
+    })
  });
 module.exports = router;
