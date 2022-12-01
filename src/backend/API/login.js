@@ -10,10 +10,8 @@ const Login = (props, setData) =>{
    .then((response) => {
       if (response.data != null){
          const userData = {
-            _id: response.data._id,
             username: response.data.username,
-            email: response.data.email,
-            img1: response.data.img1
+            password: response.data.password,
          };
          setData(userData)
       }
