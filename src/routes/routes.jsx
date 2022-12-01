@@ -22,7 +22,6 @@ function Router() {
       <Route path="/:user" element={<ProfilePublic />} />
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/stack" element={<Stack />} />
-      <Route path="/chat" element={<Chat />}/>
     </Routes>
   );
 }
