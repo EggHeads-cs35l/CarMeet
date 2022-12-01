@@ -15,7 +15,3 @@ app.use(express.urlencoded({extended: true}));
 app.use('/app', routeUrls);
 server.listen(4000, () =>{console.log("Running")});
 
-io.on("connection", (socket) => {
-    socket.on("join", async (gameId) => {});
-    socket.on("message", (message) => {});
-});
