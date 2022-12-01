@@ -31,13 +31,13 @@ export default function Signup(props) {
   }
 
   const handlesubmit =(e) =>{
-    e.preventDefault();
-    console.log("gi")
+    e.preventDefault()
     const data = {
       name: name,
       username: username,
       password: password,
       location: location,
+      img1: img,
       year: year,
       mode: mode,
       model: model,
@@ -110,7 +110,6 @@ export default function Signup(props) {
       alert("Please input an image of a car");
       console.log()
       let form = document.getElementById("login-form");
-      form.reset();
       console.log(form);
       // UI changes to notify the user
     }
@@ -250,7 +249,7 @@ export default function Signup(props) {
               </ToggleButtonGroup>
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary" onClick={()=>navigate('/login')}>
+              <button type="submit" className="btn btn-primary" /*onClick={()=>navigate('/login')}*/>
                 Submit
               </button>
             </div>
