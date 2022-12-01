@@ -1,11 +1,8 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useParams } from "react-router-dom";
 
 const ProfilePublic = (props) => {
-  const { user } = useParams();
-  const id = user === undefined ? props.manual : user;
   return (
     <div
       className="stack"
@@ -20,10 +17,10 @@ const ProfilePublic = (props) => {
         <Card.Img src="https://picsum.photos/1080/720"/>
         <Card.Body>
           <Card.Title>
-            <h2>"{id}"</h2>
+            <h2>{props.name}</h2>
           </Card.Title>
           <Card.Subtitle class="mb-2 text-muted">
-            <h4>"State"</h4>
+            <h4>{props.state}</h4>
           </Card.Subtitle>
           <ListGroup variant="flush">
             <ListGroup.Item class="mb-2">
@@ -35,7 +32,7 @@ const ProfilePublic = (props) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                "year"+"make"+"model"
+                {props.year} {props.make} {props.model}
               </h4>
             </ListGroup.Item>
           </ListGroup>

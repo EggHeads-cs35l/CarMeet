@@ -59,6 +59,7 @@ export default function Stack() {
 
   const [users, setUsers] = useState(null);
   Search(setUsers);
+  console.log(users)
 
   const navigate = useNavigate();
   const like = () => {
@@ -99,7 +100,7 @@ export default function Stack() {
               <BsFillChatTextFill class="mb-1" />
             </Button>
           </div>
-          <ProfilePublic manual="anish" className="profile" />
+          <ProfilePublic className="profile" name="anish" state="California" year="2012" make="Toyota" model="Supra"  />
         </div>
         <div style={{ position: "absolute", left: "78%", top: "50%" }}>
           <Button variant="outline-success" size="lg" onClick={like}>

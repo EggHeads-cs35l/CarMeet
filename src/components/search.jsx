@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import ProfilePublic from "../pages/public-profile.jsx";
 import "./style/search.css";
 
 /*Credits to Pedro Maachado (https://github.com/machadop1407) for tutorial video*/
@@ -49,7 +50,7 @@ export default function ({ placeholder, data }) {
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             const getProfile = () => {
-              return navigate("/" + value.username);
+              return(navigate('/view', {state: value}));
             };
             return (
               <span className="dataItem" onClick={getProfile}>
