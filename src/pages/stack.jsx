@@ -13,12 +13,11 @@ import PriorityQueue, {
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
-import {Search} from "../Database_api/API.js";
+import {Search, Update} from "../Database_api/API.js";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
 import Modal from 'react-bootstrap/Modal';
-
 export var auto_complete_tree = new Trie();
 export var sorted_profile_stack = new PriorityQueue();
 
@@ -71,10 +70,21 @@ export default function Stack() {
     //modal stuff
     const [show, setShow] = useState(false);
 
-  
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleSend = () => {
+      Update ({
+              user:{ username: "aasd"},
+              updates: {
+              $push:{
+                messages:{
+                  username: "tejas",
+                  message: "test",
+                }
+              }
+            }});
+
       alert("Message sent. You will be notified when the user responds.");
     }
     //modal stuff end
@@ -97,7 +107,7 @@ export default function Stack() {
           </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>x
+        <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
