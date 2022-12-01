@@ -5,10 +5,8 @@ import EditProfile from "../pages/edit-profile";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import ProfilePrivate from "../pages/private-profile";
-import ProfilePublic from "../pages/public-profile";
 import Signup from "../pages/signup";
 import Stack from "../pages/stack";
-import Chat from "../components/chat";
 
 function Router() {
   return (
@@ -19,8 +17,8 @@ function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<ProfilePrivate />} />
-      <Route path="/:user" element={<ProfilePublic />} />
       <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/view" element={<View />} />
       <Route path="/stack" element={<Stack />} />
     </Routes>
   );
