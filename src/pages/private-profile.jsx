@@ -7,6 +7,9 @@ import {Search} from "../Database_api/API.js";
 import "./style/profile.css";
 import Button from "react-bootstrap/Button";
 import { BsFillInboxesFill, BsArrowBarLeft } from "react-icons/bs";
+import {Component} from "react"
+
+import Modal from 'react-bootstrap/Modal';
 
 function inbox(){
   return(
@@ -17,6 +20,21 @@ function inbox(){
 }
 
 export default function Profile() {
+    const messages = [("hello world", "user 1"), ("hello world", "user 2"), ("hello world", "user 3")];
+    const listMessages = messages.map((message) =>
+      <div key={message.toString()}>
+        {message}
+      </div>
+    );
+
+    //modal stuff
+    const [show, setShow] = useState(false);
+
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    //modal stuff end
+
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,13 +70,38 @@ export default function Profile() {
 
   return (
     <div className="profile">
+    <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Inbox</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{
+                maxHeight: 'calc(100vh - 210px)',
+                overflowY: 'auto'
+                          }}
+                          >
+          <form>
+          <div>
+          {listMessages}
+          </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+        </Modal.Footer>
+      </Modal>
+
     <div style={{ position: "absolute", left: "17%", top: "5%" }}>
           <Button variant="outline-danger" size="lg" onClick={() => navigate(-1)}>
             <BsArrowBarLeft class="mb-1" />
           </Button>
     </div>
+
     <div style={{ position: "absolute", right: "17%", top: "5%" }}>
-          <Button size="lg" onClick={inbox}>
+          <Button size="lg" onClick={handleShow}>
             <BsFillInboxesFill class="mb-1" />
           </Button>
     </div>
@@ -94,3 +137,14 @@ export default function Profile() {
     </div>
   );
 }
+
+class George extends Component {
+    render() {
+        return (
+            <div>
+                card html
+            </div>
+        )
+    }
+}
+
