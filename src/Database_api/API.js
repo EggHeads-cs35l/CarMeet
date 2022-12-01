@@ -15,7 +15,6 @@ const login = (props, setData) =>{
             model: response.data.model,
             make: response.data.make,
          };
-         console.log(response)
          setData(userData)
       }
       else

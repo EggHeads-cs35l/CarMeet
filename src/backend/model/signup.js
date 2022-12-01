@@ -43,6 +43,11 @@ const Profile = new mongoose.Schema({
    likes:{
       type:Array,
       required: false,
+   },
+   
+   messages:{
+      type:Array,
+      required: false,
    }
 });
 
