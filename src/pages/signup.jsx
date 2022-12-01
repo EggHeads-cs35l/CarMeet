@@ -49,13 +49,14 @@ export default function Signup(props) {
 
     // const resultElement = document.getElementById('result');
     // resultElement.innerText = 'Loading CNN model...';
+    let image_data = new ImageData(img.files[0]);
     console.log('Loading CNN model...');
 
     const imageModel = new CarNoCar();
     console.time('Loading of model');
     await imageModel.load();
     console.timeEnd('Loading of model');
-    const pixels = tf.browser.fromPixels(img);
+    const pixels = tf.browser.fromPixels(image_data);
     //const results = imageModel.execute(pixels);
     console.time('First prediction');
     let result = imageModel.predict(pixels);
