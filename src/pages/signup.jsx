@@ -4,15 +4,14 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate } from "react-router-dom";
 import SignUp from "../backend/API/signup";
-import { CarNoCar } from "./model";
-import * as tf from '@tensorflow/tfjs';
+import { CarNoCar } from "../components/model";
 
-export let ML_result = '';
+export let ML_result = "";
 
 export default function Signup(props) {
   const [data, setData] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const [name, setName] = useState("");
   const [img, setImg] = useState(null);
   const [location, setLocation] = useState("");
@@ -51,24 +50,25 @@ export default function Signup(props) {
 
     // const resultElement = document.getElementById('result');
     // resultElement.innerText = 'Loading CNN model...';
+    let image_data = new ImageData(img.files[0]);
     console.log('Loading CNN model...');
 
     const imageModel = new CarNoCar();
-    console.time('Loading of model');
+    console.time("Loading of model");
     await imageModel.load();
     console.timeEnd('Loading of model');
-    const pixels = tf.browser.fromPixels(img);
+    const pixels = tf.browser.fromPixels(image_data);
     //const results = imageModel.execute(pixels);
-    console.time('First prediction');
+    console.time("First prediction");
     let result = imageModel.predict(pixels);
     const topK = imageModel.getTopKClasses(result, 2);
-    console.timeEnd('First prediction');
+    console.timeEnd("First prediction");
 
     // resultElement.innerText = '';
     let ML_result_buf = "";
 
     /* Output */
-    topK.forEach(x => {
+    topK.forEach((x) => {
       // resultElement.innerText += `${x.value.toFixed(3)}: ${x.label}\n`;
       ML_result_buf += `${x.value.toFixed(3)}: ${x.label}\n`;
     });
@@ -76,7 +76,12 @@ export default function Signup(props) {
     ML_result = ML_result_buf;
 
     /* Check if is car */
-    let target_labels = ["passenger car, coach, carriage", "racer, race car, racing car", "sports car, sport car", "streetcar"];
+    let target_labels = [
+      "passenger car, coach, carriage",
+      "racer, race car, racing car",
+      "sports car, sport car",
+      "streetcar",
+    ];
     let is_valid_image = false;
 
     for (var i = 0; i < 3; i++) {
@@ -98,11 +103,11 @@ export default function Signup(props) {
     }
 
     imageModel.dispose();
-  }
+  };
 
   return (
     <div>
-      <div className="login-form-container">
+      <div className="login-form-container" style={{position:"absolute", top:"50%", transform: "translateY(-50%)", height:"auto"}}>
         <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Sign Up</h3>
@@ -150,11 +155,11 @@ export default function Signup(props) {
                 alt="image of car"
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
-                onChange = {(e) => verifyImage(e.target)}
+                onChange={(e) => verifyImage(e.target)}
               />
             </div>
             {/*or image submit^^ */}
-
+            
             <div className="form-group mt-3">
               <label>Location (State)</label>
               <input
@@ -223,14 +228,16 @@ export default function Signup(props) {
                   id="tbg-check-3"
                   value={3}
                   variant="outline-success"
-                  onClick={() =>{handlebutton("Drift")}}
+                  onClick={() => {
+                    handlebutton("Drift");
+                  }}
                 >
                   Drift
                 </ToggleButton>
               </ToggleButtonGroup>
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary" onClick={()=>navigate('/login')}>
                 Submit
               </button>
             </div>

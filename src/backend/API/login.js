@@ -13,9 +13,7 @@ const Login = (props, setData) =>{
             _id: response.data._id,
             username: response.data.username,
             email: response.data.email,
-            img1: response.data.img1,
-            img2: response.data.img2,
-            img3: response.data.img3
+            img1: response.data.img1
          };
          setData(userData)
       }
