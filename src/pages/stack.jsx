@@ -14,7 +14,6 @@ import PriorityQueue, {
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
 import {Search} from "../Database_api/API.js";
-import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
@@ -59,7 +58,6 @@ export default function Stack() {
 
   const [users, setUsers] = useState(null);
   Search(setUsers);
-  console.log(users)
 
   const navigate = useNavigate();
   const like = () => {
@@ -100,6 +98,7 @@ export default function Stack() {
               <BsFillChatTextFill class="mb-1" />
             </Button>
           </div>
+          {/* true stack */}
           <ProfilePublic className="profile" name="anish" state="California" year="2012" make="Toyota" model="Supra"  />
         </div>
         <div style={{ position: "absolute", left: "78%", top: "50%" }}>
