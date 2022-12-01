@@ -32,7 +32,7 @@ const Search = (setData, props = null) =>{
          }
          setData(users);
       }
-      setData(null);
+      else {setData(null);}
     }); 
 }
 
