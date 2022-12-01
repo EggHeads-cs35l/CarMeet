@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { default as login } from "../backend/API/login";
 
+export var userData;
+
 export default function Login() {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
@@ -10,6 +12,8 @@ export default function Login() {
   const submithandler = (e) => {
     e.preventDefault();
     login({ username: username, password: password }, setData);
+    navigate("/stack");
+    userData = data;
   };
   return (
     <div
@@ -53,7 +57,7 @@ export default function Login() {
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary" onClick={()=>navigate('/stack')}>
+            <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
