@@ -13,7 +13,7 @@ class TrieNode
     }
 
     #get_child_with_key(key)
-    {   
+    {
         for (const [child_key, child] of Object.entries(this.children))
             if (child.childrenKeys[key])
                 return child;
@@ -29,7 +29,7 @@ class TrieNode
     }
 }
 
-class Trie
+export default class Trie
 {
     /**
      * Constructor for the Trie
@@ -43,8 +43,8 @@ class Trie
      * Maps the given letter to something else
      *  this method only affects the internal storage, the external behavior remains unchanged
      * @private
-     * @param {char} letter 
-     * @returns 
+     * @param {char} letter
+     * @returns
      */
     #map_character(letter)
     {
@@ -53,8 +53,8 @@ class Trie
 
     /**
      * Insert a key-value pair in the trie
-     * @param {string} key 
-     * @param {} value 
+     * @param {string} key
+     * @param {} value
      */
     insert(key, value = null)
     {
@@ -79,9 +79,9 @@ class Trie
     /**
      * Get a node by a key
      * TODO: need search to generate the complete key, rather than that of one node
-     * @param {string} key 
+     * @param {string} key
      * @param {boolean} not_require_match if this is set to true, the method returns null if the given key is not a match
-     * @return {TrieNode} or null 
+     * @return {TrieNode} or null
      */
     get_node(key, not_require_match = false)
     {
@@ -99,7 +99,7 @@ class Trie
             key_idx += 1;
         }
 
-        if (curr_node.isMatch || not_require_match) 
+        if (curr_node.isMatch || not_require_match)
             return curr_node;
         else return null;
     }
@@ -107,7 +107,7 @@ class Trie
     /**
      * Get value of the given key
      *  return null if the given key doesn't exist
-     * @param {string} key 
+     * @param {string} key
      * @return {any} value
      */
     get(key)
@@ -118,7 +118,7 @@ class Trie
 
     /**
      * Lists all possible keys beginning with the given key
-     * @param {string} key 
+     * @param {string} key
      * @return {string}
      */
     get_possible_keys_precise(key)
@@ -148,8 +148,8 @@ class Trie
     /**
      * Return a list of possible keys with up to certain number of typos
      *  if typo is a negative number, the method lists all elements in the Trie
-     * @param {string} key 
-     * @param {int} typo 
+     * @param {string} key
+     * @param {int} typo
      * @return {[string...]}
      */
     get_possible_keys(key, typo = -1)
@@ -164,25 +164,25 @@ class Trie
         if (curr_node.children[node_key])
             this.#get_possible_keys_recur(key, key_loc + 1, curr_node.children[node_key], typo, prefix, result);
 
-        if (key.length == 0 || typo != 0)
+        if (key.length === 0 || typo !== 0)
         {
             for (const [child_key, child] of Object.entries(curr_node.children))
-                if (child_key != node_key)
+                if (child_key !== node_key)
                     this.#get_possible_keys_recur(key, key_loc, child, typo - 1, prefix, result);
         }
 
         return Array.from(result);
     }
-    
+
     /**
      * Recursion method for get_possible_keys
      * @helper
-     * @param {string}      key 
-     * @param {int}         key_loc 
-     * @param {TrieNode}    curr_node 
-     * @param {int}         typo 
-     * @param {string}      prefix 
-     * @param {[string...]} result 
+     * @param {string}      key
+     * @param {int}         key_loc
+     * @param {TrieNode}    curr_node
+     * @param {int}         typo
+     * @param {string}      prefix
+     * @param {[string...]} result
      */
     #get_possible_keys_recur(key, key_loc, curr_node, typo, prefix, result)
     {
@@ -200,10 +200,10 @@ class Trie
             if (curr_node.children[node_key])
                 this.#get_possible_keys_recur(key, key_loc + 1, curr_node.children[node_key], typo, curr_node_whole_key, result);
 
-            if (key.length == 0 || typo != 0)
+            if (key.length === 0 || typo !== 0)
             {
                 for (const [child_key, child] of Object.entries(curr_node.children))
-                    if (child_key != node_key)
+                    if (child_key !== node_key)
                         this.#get_possible_keys_recur(key, key_loc, child, typo - 1, curr_node_whole_key, result);
             }
         }
@@ -212,7 +212,7 @@ class Trie
     /**
      * Return the most approximate key of the given key
      * @helper
-     * @param {string} key 
+     * @param {string} key
      * @return string
      */
     #closest_key(key)
@@ -221,6 +221,7 @@ class Trie
         if (curr_node === null) return null;
 
         let stack = [curr_node];
+        let nodes = [];
         while (stack.length)
         {
             if (curr_node.isMatch) return curr_node;

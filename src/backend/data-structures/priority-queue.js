@@ -1,4 +1,4 @@
-class PriorityQueue {
+export default class PriorityQueue {
     /**
      * Construct the heap with a collection of comparators, evaluated by the order
      * @param {[function]} comparators with default value being an empty list
@@ -166,7 +166,7 @@ class PriorityQueue {
 
             // o1 = o2 by this comparator, check next comparator;
             //      if o1 = o2 by all comparators, break the loop and return 0
-            if (res == 0) continue;
+            if (res === 0) continue;
 
             // else
             return res;
@@ -189,11 +189,11 @@ class PriorityQueue {
 
 /**
  * Returns data sorted by given comparators
- * @param {[any...]} data
+ * @param {[any]} data
  * @param {function...} comparators
  * @return Array
  */
-function generate_sorted_stack(data) {
+export function generate_sorted_stack(data) {
     let comparators_list = [];
     for (var i = 1; i < arguments.length; i++)
         comparators_list.push(arguments[i]);
@@ -201,10 +201,10 @@ function generate_sorted_stack(data) {
     let sorted = new PriorityQueue(comparators_list);
     let result = []
 
-    for (var i = 0; i < data.length; i++)
+    for (i = 0; i < data.length; i++)
         sorted.add(data[i]);
 
-    for (var i = 0; i < data.length; i++)
+    for (i = 0; i < data.length; i++)
         result.push(sorted.remove());
 
     return result;
