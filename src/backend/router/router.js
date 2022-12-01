@@ -48,12 +48,10 @@ router.post('/signup',upload.any(), (request, response) => {
        console.log(err);
     })
  });
- 
+
  router.post('/search', (request,response) => {
-    signupTemp.find({   
-       email: request.body.email,
-       password: request.body.password
-    }).then().select('-password').then(data =>{
+    signupTemp.find().select('-password')
+    .then(data =>{
        response.send(data);
     }).catch(err =>{
        response.send("Error");

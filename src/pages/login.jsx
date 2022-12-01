@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { default as login } from "../backend/API/login";
+import { default as Search} from "../backend/API/search";
 
 export var userData;
 
@@ -12,9 +14,11 @@ export default function Login() {
   const submithandler = (e) => {
     e.preventDefault();
     login({ username: username, password: password }, setData);
-    navigate("/stack");
-    userData = data;
   };
+  useEffect(()=>{
+    if (data != null)
+      navigate("/stack", {state: data});
+  },data);
   return (
     <div
       className="login-form-container"
