@@ -40,7 +40,6 @@ const ProfilePublic = (props) => {
             </ListGroup.Item>
           </ListGroup>
         </Card.Body>
-        <a href="#" class="btn btn-primary">Chat</a>
       </Card>
     </div>
   );
