@@ -39,10 +39,10 @@ router.post('/signup',upload.any(), (request, response) => {
 
  router.post('/login', (request,response) => {
     signupTemp.findOne({   
-       username: request.body.usrname,
+       username: request.body.username,
        password: request.body.password
     }).then(data => {
-      response.json(data);
+      response.send(data);
     }).catch(err =>{
        response.send("Error");
        console.log(err);
@@ -50,7 +50,7 @@ router.post('/signup',upload.any(), (request, response) => {
  });
 
  router.post('/search', (request,response) => {
-    signupTemp.find().select('-password')
+    signupTemp.find(request.body).select('-password')
     .then(data =>{
        response.send(data);
     }).catch(err =>{
@@ -58,4 +58,14 @@ router.post('/signup',upload.any(), (request, response) => {
        console.log(err);
     })
  });
+
+ router.post('/update', (request,response) => {
+   signupTemp.findOneAndUpdate(request.body.filter, request.body.update)
+   .then(() => {
+      response.send("Success");
+   }).catch(err =>{
+      response.send("Error");
+      console.log(err);
+   })
+});
 module.exports = router;
