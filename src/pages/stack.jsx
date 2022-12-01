@@ -12,7 +12,8 @@ import PriorityQueue, {
   generate_sorted_stack,
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
-import Search from "../components/search.jsx";
+import SearchBox from "../components/search.jsx";
+import {Search} from "../Database_api/API.js";
 import Data from "../data/testdata.json";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
@@ -67,7 +68,7 @@ export default function Stack() {
     console.log("dislike");
   };
   return (
-    <div class="container">
+    <div class="container" width="auto" style={{overflow: "hidden"}}>
       <div class="row">
         <div style={{ position: "absolute", left: "17%", top: "50%" }}>
           <Button variant="outline-danger" size="lg" onClick={dislike}>
@@ -77,7 +78,7 @@ export default function Stack() {
         <div class="col-md-7">
           <div className="search" class="d-flex d-flex-inline">
             {/* Search Feature */}
-            <Search placeholder="Search profiles..." data={users} />
+            <SearchBox placeholder="Search profiles..." data={users} />
             {/* Profile Button */}
             <Button
               variant="outline-primary"
