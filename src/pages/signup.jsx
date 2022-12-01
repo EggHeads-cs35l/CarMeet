@@ -22,13 +22,16 @@ export default function Signup(props) {
   useEffect(() => {
     if (verifyData != null && verifyData != "default") {
       alert("Username already exists");
-    } else {
+    } else if(verifyData != "default"){
       const data = {
         name: name,
         username: username,
         password: password,
         location: location,
-        img1: img,
+        img1: {
+          data:img,
+          type:img.type
+        },
         year: year,
         mode: mode,
         model: model,
