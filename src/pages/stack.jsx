@@ -60,6 +60,7 @@ export default function Stack() {
   build_autocomplete_tree();
 
   const [users, setUsers] = useState(null);
+  Search(setUsers);
 
   const [stackUsers, setStack] = useState(null);
   const modes_to_search = data.mode.split(' ').slice(2);
