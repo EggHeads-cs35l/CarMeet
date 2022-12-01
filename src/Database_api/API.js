@@ -1,6 +1,6 @@
 import axios from "axios";
 import FormData from "form-data";
-const IP = "131.179.49.113"
+const IP = "149.142.75.88"
 const login = (props, setData) =>{
    axios.post("http://" + IP + ":4000/app/login", props)
    .then((response) => {
@@ -34,7 +34,7 @@ const Search = (setData, props = null) =>{
       }
       else
          setData(null)
-    }); 
+    });
 }
 
 const SignUp = (props) =>{
@@ -65,7 +65,7 @@ const Update = (props) =>{
     })
     .catch(() =>{
       return false
-    }); 
+    });
 }
 
 export {login, Search, Update, SignUp};
