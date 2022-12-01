@@ -16,6 +16,7 @@ const Profile = new mongoose.Schema({
    },
    img1:{
       data: Buffer,
+      contentType: String,
       required: false
    },
    make:{

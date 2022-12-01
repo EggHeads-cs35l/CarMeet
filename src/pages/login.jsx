@@ -16,8 +16,6 @@ export default function Login() {
   useEffect(() => {
     if (data != null && data != "default") {
       navigate("/stack", { state: data });
-    } else if (data != "default") {
-      alert("Invalid username or password");
     }
   }, [data]);
   return (

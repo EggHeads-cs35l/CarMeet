@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useNavigate, useLocation } from "react-router-dom";
+import {Search} from "../Database_api/API.js";
 import "./style/profile.css";
 import Button from "react-bootstrap/Button";
 import { BsFillInboxesFill, BsArrowBarLeft } from "react-icons/bs";
 import {Component} from "react"
 
 import Modal from 'react-bootstrap/Modal';
-import { useState } from "react";
 
 function inbox(){
   return(
@@ -20,28 +20,53 @@ function inbox(){
 }
 
 export default function Profile() {
-  const messages = [("hello world", "user 1"), ("hello world", "user 2"), ("hello world", "user 3")];
-  const listMessages = messages.map((message) =>
-    <div key={message.toString()}>
-      {message}
-    </div>
-  );
+    const messages = [("hello world", "user 1"), ("hello world", "user 2"), ("hello world", "user 3")];
+    const listMessages = messages.map((message) =>
+      <div key={message.toString()}>
+        {message}
+      </div>
+    );
 
+    //modal stuff
+    const [show, setShow] = useState(false);
+
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    //modal stuff end
+
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
-  const navigate = useNavigate();
-
-
-  //modal stuff
-  const [show, setShow] = useState(false);
-
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleSend = () => {
-    alert("Message sent. You will be notified when the user responds.");
+  const top = []
+  let testData = {username: "none", name: "Find Some Friends"}
+  if (userData.likes == null){
+    for (let i = 0; i < 4; i++){
+      top.push(testData)
+    }
   }
-  //modal stuff end
+  else{
+    const likes = userData.likes.reverse()
+    for (let i = 0; i < 4; i++){
+      Search(setData ,{username: likes[i]})
+      if(data==null){
+        top.push(testData)
+      }else{
+        top.push(data)
+      }
+    }
+  }
+  console.log(userData)
+  console.log(top)
+  function clickable(inData){
+    if(inData.username == "none"){
+      return
+    }
+    else{
+      return navigate("/view", {state: inData})
+    }
+  }
 
   return (
     <div className="profile">
@@ -81,6 +106,7 @@ export default function Profile() {
           </Button>
     </div>
       <Card style={{ width: "35rem", height: "auto" }}>
+        {/*TODO: convert buffer to jpg/png and export*/}
         <Card.Img src="https://picsum.photos/1080/720" />
         <Card.Body>
           <Card.Title>
@@ -94,15 +120,13 @@ export default function Profile() {
           <Row xs={1} md={2} className="g-4">
             {Array.from({ length: 4 }).map((_, idx) => (
               <Col>
-                {/*TODO: Dynamic card loading*/}
-                <Card onClick={() => navigate("/{title}")}>
+                <Card onClick={clickable(top[idx])}>
                   <Card.Img
                     variant="top"
                     src="https://picsum.photos/1080/720/"
                   />
                   <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>Deets {idx + 1}</Card.Text>
+                    <Card.Title>{top[idx].name}</Card.Title>
                   </Card.Body>
                 </Card>
               </Col>

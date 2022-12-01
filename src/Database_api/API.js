@@ -1,6 +1,6 @@
 import axios from "axios";
 import FormData from "form-data";
-const IP = "149.142.75.88"
+const IP = "131.179.49.113"
 const login = (props, setData) =>{
    axios.post("http://" + IP + ":4000/app/login", props)
    .then((response) => {
@@ -9,16 +9,19 @@ const login = (props, setData) =>{
             username: response.data.username,
             password: response.data.password,
             location: response.data.location,
-            img: response.data.img1,
+            img1: response.data.img1,
             year: response.data.year,
             mode: response.data.mode,
             model: response.data.model,
             make: response.data.make,
          };
+         console.log(response)
          setData(userData)
       }
-      else
+      else{
+         alert("Incorrect username or password")
          setData(null)
+      }
     });
 }
 
@@ -34,7 +37,7 @@ const Search = (setData, props = null) =>{
       }
       else
          setData(null)
-    });
+    }); 
 }
 
 const SignUp = (props) =>{
