@@ -29,10 +29,9 @@ router.post('/signup',upload.any(), (request, response) => {
        img1: files.img1,
     })
     signedUpUser.save().then(data=>{
-       response.json(data);
+       response.send(data);
     })
     .catch(err =>{
-       console.log(err)
        response.send("Error");
     })
  });
@@ -45,7 +44,6 @@ router.post('/signup',upload.any(), (request, response) => {
       response.send(data);
     }).catch(err =>{
        response.send("Error");
-       console.log(err);
     })
  });
 
@@ -55,17 +53,16 @@ router.post('/signup',upload.any(), (request, response) => {
        response.send(data);
     }).catch(err =>{
        response.send("Error");
-       console.log(err);
     })
  });
 
  router.post('/update', (request,response) => {
-   signupTemp.findOneAndUpdate(request.body.filter, request.body.update)
+   console.log(request.body)
+   signupTemp.findOneAndUpdate(request.body.filter, request.body.updates)
    .then(() => {
       response.send("Success");
    }).catch(err =>{
       response.send("Error");
-      console.log(err);
    })
 });
 module.exports = router;
