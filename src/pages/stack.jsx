@@ -155,17 +155,19 @@ export default function Stack() {
 
   //modal stuff SEND MESSAGE
   const [show, setShow] = useState(false);
+  const [msgContent, setMsgContent] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSend = () => {
+    alert("message sent! You'll receive a notification in your inbox once they respond.")
     Update({
-      user: { username: "aasd" },
+      user: { username: "matthewliu" },
       updates: {
         $push: {
           messages: {
-            username: "tejas",
-            message: "test",
+            username: "matthewliu",
+            message: document.getElementById("Textarea").value,
           },
         },
       },
