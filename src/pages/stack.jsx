@@ -73,9 +73,12 @@ export default function Stack() {
 
   const [currentProfile, setCurrentProfile] = useState([]);
 
-  var topProfile;
+  let topProfile;
+
   useEffect(() => {
     async function loadStackProfiles() {
+      topProfile = stackUsers[-1];
+
       const componentPromises = stackUsers.map(async (userInfo) => {
         const View = (
           <div id={userInfo.username}>
@@ -86,6 +89,7 @@ export default function Stack() {
               year={userInfo.year}
               make={userInfo.make}
               model={userInfo.model}
+              img1={userInfo.img1}
             />
           </div>
         );
@@ -107,7 +111,7 @@ export default function Stack() {
     } // (stackUsers !== null)
     else if (topProfile === undefined) {
       loadStackProfiles();
-      topProfile = stackUsers.pop();
+      topProfile = stackUsers[-1];
       console.log(topProfile);
       console.log(stackUsers);
     }
@@ -116,6 +120,11 @@ export default function Stack() {
   const navigate = useNavigate();
   const like = () => {
     console.log("like");
+    console.log(stackUsers);
+
+    if (topProfile === undefined)
+      topProfile = stackUsers[-1];
+
     console.log(topProfile);
 
     if (stackUsers.length) {

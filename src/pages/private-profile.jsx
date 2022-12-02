@@ -11,7 +11,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Search, Update } from "../Database_api/API.js";
 import "./style/profile.css";
-
+import generate_decoded_image from "../components/image_decoder.js";
 import Modal from "react-bootstrap/Modal";
 
 export default function Profile() {
@@ -19,9 +19,8 @@ export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
-  const img = `data:image/png;base64,` + btoa(
-    userData.img1.data.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
- );
+
+  const img = generate_decoded_image(userData.img1);
 
   // Like users stuff
 
@@ -58,7 +57,7 @@ export default function Profile() {
           <div id={userInfo.username}>
             <Col>
               <Card onClick={() => { clickable(userInfo) }}>
-                <Card.Img variant="top" src="https://picsum.photos/1080/720/" />
+                <Card.Img variant="top" src={generate_decoded_image(userInfo.img1)} width={250} height={250} />
                 <Card.Body>
                   <Card.Title>{userInfo.name}</Card.Title>
                 </Card.Body>
@@ -264,7 +263,7 @@ export default function Profile() {
       </div>
       <Card style={{ width: "35rem", height: "auto" }}>
         {/*TODO: convert buffer to jpg/png and export*/}
-        <Card.Img src={img} />
+        <Card.Img src={img} width={1080} height={720} />
         <Card.Body>
           <Card.Title>
             <h2>{userData.username}</h2>
