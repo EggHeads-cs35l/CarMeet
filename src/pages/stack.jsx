@@ -1,26 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import {
   BsCheckLg,
   BsFillChatTextFill,
   BsFillPersonFill,
   BsXLg,
 } from "react-icons/bs";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import PriorityQueue, {
   generate_sorted_stack,
 } from "../backend/data-structures/priority-queue";
 import Trie from "../backend/data-structures/trie";
 import SearchBox from "../components/search.jsx";
-import { Search } from "../Database_api/API.js";
+import { Search, Update } from "../Database_api/API.js";
 import ProfilePublic from "../pages/public-profile.jsx";
 import { userData } from "./login";
 import "./style/stack.css";
-import Modal from 'react-bootstrap/Modal';
-import { Update } from "../Database_api/API.js";
-import { Spinner } from "react-bootstrap";
 
 export var auto_complete_tree = new Trie();
 export var sorted_profile_stack = new PriorityQueue();
@@ -64,15 +61,14 @@ export default function Stack() {
   Search(setUsers);
 
   const [stackUsers, setStack] = useState(null);
-  const modes_to_search = data.mode.split(' ').slice(2);
+  const modes_to_search = data.mode.split(" ").slice(2);
 
-  var regex = '';
-  for (var i = 0; i < modes_to_search.length; i++)
-  {
-    if (i != 0) regex += '|';
-    regex += '('
+  var regex = "";
+  for (var i = 0; i < modes_to_search.length; i++) {
+    if (i != 0) regex += "|";
+    regex += "(";
     regex += modes_to_search[i];
-    regex += ')'
+    regex += ")";
   }
 
   const [currentProfile, setCurrentProfile] = useState([]);
@@ -80,12 +76,21 @@ export default function Stack() {
   var topProfile;
   useEffect(() => {
     async function loadStackProfiles() {
-      const componentPromises = stackUsers.map(async userInfo => {
-        const View = <div id={userInfo.username}>
-          < ProfilePublic className = "profile" name = { userInfo.name } state = { userInfo.location } year = { userInfo.year } make = { userInfo.make } model = { userInfo.model } />
-        </div>
+      const componentPromises = stackUsers.map(async (userInfo) => {
+        const View = (
+          <div id={userInfo.username}>
+            <ProfilePublic
+              className="profile"
+              name={userInfo.name}
+              state={userInfo.location}
+              year={userInfo.year}
+              make={userInfo.make}
+              model={userInfo.model}
+            />
+          </div>
+        );
         return View;
-      })
+      });
       if (topProfile === undefined) {
         topProfile = stackUsers[-1];
         Promise.all(componentPromises).then(setCurrentProfile);
@@ -93,19 +98,20 @@ export default function Stack() {
     }
 
     if (stackUsers == null) {
-      console.log("trd==")
-      console.log(regex)
+      console.log("trd==");
+      console.log(regex);
 
       // Search for compatible modes
       // Search(setStack, { mode: new RegExp(regex) });
-      Search(setStack, { mode: {$regex: regex, $options: 'i'}, username: {$nin: data.username} });
-    }
-    else // (stackUsers !== null)
-    {
+      Search(setStack, {
+        mode: { $regex: regex, $options: "i" },
+        username: { $nin: data.username },
+      });
+    } // (stackUsers !== null)
+    else {
       loadStackProfiles();
       console.log(stackUsers);
     }
-
   }, [stackUsers]);
 
   const navigate = useNavigate();
@@ -119,18 +125,14 @@ export default function Stack() {
       d.parentNode.removeChild(d);
     } else return;
 
-    Update(
-      {
-        username: { username: data.username },
-        updates: {
-          $push: {
-            likes: 
-              topProfile.username,
-          }
-        }
-      }
-
-    )
+    Update({
+      username: { username: data.username },
+      updates: {
+        $push: {
+          likes: topProfile.username,
+        },
+      },
+    });
   };
   const dislike = () => {
     console.log("dislike");
@@ -145,20 +147,21 @@ export default function Stack() {
   //modal stuff SEND MESSAGE
   const [show, setShow] = useState(false);
 
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSend = () => {
-    Update ({
-            user:{ username: "aasd"},
-            updates: {
-            $push:{
-              messages:{
-                username: "tejas",
-                message: "test",
-              }
-            }
-          }});};
+    Update({
+      user: { username: "aasd" },
+      updates: {
+        $push: {
+          messages: {
+            username: "tejas",
+            message: "test",
+          },
+        },
+      },
+    });
+  };
 
   //modal stuff end
   return (
@@ -184,7 +187,15 @@ export default function Stack() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={event => { handleSend(); handleClose(); }}>Send Message</Button>
+          <Button
+            variant="primary"
+            onClick={(event) => {
+              handleSend();
+              handleClose();
+            }}
+          >
+            Send Message
+          </Button>
         </Modal.Footer>
       </Modal>
       <div class="row">
@@ -218,7 +229,7 @@ export default function Stack() {
             </Button>
           </div>
           {/* true stack */}
-          <React.Suspense fallback = 'Loading profiles...'>
+          <React.Suspense fallback="Loading profiles...">
             <div className="container">{currentProfile}</div>
           </React.Suspense>
         </div>
