@@ -3,6 +3,9 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const ProfilePublic = (props) => {
+  const img = `data:` + props.img1.contentType + `;base64,` + btoa(
+    props.img1.data.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
+ );
   return (
     <div
       className="stack"
@@ -14,7 +17,7 @@ const ProfilePublic = (props) => {
       }}
     >
       <Card style={{ width: "45rem", height: "auto" }}>
-        <Card.Img src="https://picsum.photos/1080/720"/>
+        <Card.Img src={img}/>
         <Card.Body>
           <Card.Title>
             <h2>{props.name}</h2>

@@ -19,7 +19,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
-  const img = `data:image/png;base64,` + btoa(
+  const img = `data:` + userData.img1.contentType + `;base64,` + btoa(
     userData.img1.data.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
  );
 
