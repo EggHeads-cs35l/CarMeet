@@ -116,22 +116,24 @@ export default function Profile() {
   // end of likes
 
   //reply stuff
+  const [currentRecipent, setCurrentRecipent] = useState("");
   const [show, setShow] = useState(false);
   const handleCloseReply = () => setShow(false);
   const handleShowReply = () => setShow(true);
   const handleSendReply = () => {
+    alert("Successfully replied to " + currentRecipent)
     Update({
-      user: { username: "aasd" },
+      user: { username: currentRecipent },
       updates: {
         $push: {
           messages: {
-            username: "tejas",
-            message: "test",
+            username: userData.username,
+            message: document.getElementById("Textarea").value,
           },
         },
       },
     });
-    alert("Message sent. You will be notified when the user responds.");
+    //alert("Message " + document.getElementById("Textarea").value + " sent to " + currentRecipent + " from " + userData.username);
   };
   //reply stuff end
 
@@ -140,14 +142,13 @@ export default function Profile() {
   const [allMessages, setAllMessages] = useState([
     { message: "loading messages", username: "" },
   ]);
-  console.log("HEY");
 
   const listMessages = allMessages.map((message) => (
     <Card key={message.username.toString()}>
       <Card.Body>{message.message}</Card.Body>
 
       <footer align="right">{"- " + message.username}</footer>
-      <Button variant="primary" onClick={handleShowReply}>
+      <Button variant="primary" onClick={(event) => {handleShowReply(); setCurrentRecipent(message.username);}}>
         Reply
       </Button>
     </Card>
