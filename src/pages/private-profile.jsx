@@ -116,9 +116,10 @@ export default function Profile() {
 
   function clickable(inData) {
     if (inData === null || inData.username == "none") {
-      return;
-    } else {
-      // return navigate("/view", { state: inData })
+      return navigate("/stack", {state: inData })
+    }
+    else {
+      return navigate("/view", { state: inData })
     }
   }
 
