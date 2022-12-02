@@ -228,7 +228,7 @@ export default function Stack() {
             </Button>
           </div>
           {/* true stack */}
-          <React.Suspense fallback="Loading profiles...">
+          <React.Suspense fallback={<Spinner />}>
             <div className="container">{currentProfile}</div>
           </React.Suspense>
         </div>

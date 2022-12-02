@@ -19,6 +19,9 @@ export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
+  const img = `data:image/png;base64,` + btoa(
+    userData.img1.data.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
+ );
 
   // Like users stuff
 
@@ -261,7 +264,7 @@ export default function Profile() {
       </div>
       <Card style={{ width: "35rem", height: "auto" }}>
         {/*TODO: convert buffer to jpg/png and export*/}
-        <Card.Img src="https://picsum.photos/1080/720" />
+        <Card.Img src={img} />
         <Card.Body>
           <Card.Title>
             <h2>{userData.username}</h2>
