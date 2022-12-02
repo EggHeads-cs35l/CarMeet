@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import {
   BsArrowBarLeft,
@@ -9,10 +10,9 @@ import {
   BsPencilFill,
 } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
+import generate_decoded_image from "../components/image_decoder.js";
 import { Search, Update } from "../Database_api/API.js";
 import "./style/profile.css";
-import generate_decoded_image from "../components/image_decoder.js";
-import Modal from "react-bootstrap/Modal";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -43,7 +43,6 @@ export default function Profile() {
 
   console.log(regex);
 
-
   var likeUsers_buf;
 
   useEffect(() => {
@@ -55,8 +54,15 @@ export default function Profile() {
         const View = (
           <div id={userInfo.username}>
             <Col>
-              <Card onClick={() => { clickable(userInfo) }}>
-                <Card.Img variant="top" src={generate_decoded_image(userInfo.img1)} style={{height:"480px",width:"720px"}} />
+              <Card
+                onClick={() => {
+                  clickable(userInfo);
+                }}
+              >
+                <Card.Img
+                  variant="top"
+                  src={generate_decoded_image(userInfo.img1)}
+                />
                 <Card.Body>
                   <Card.Title>{userInfo.name}</Card.Title>
                 </Card.Body>
@@ -101,10 +107,9 @@ export default function Profile() {
 
   function clickable(inData) {
     if (inData === null || inData.username == "none") {
-      return navigate("/stack", {state: userData })
-    }
-    else {
-      return navigate("/view", { state: inData })
+      return navigate("/stack", { state: userData });
+    } else {
+      return navigate("/view", { state: inData });
     }
   }
 
@@ -132,8 +137,6 @@ export default function Profile() {
 
   //const messages = userData.messages;
 
-
-
   const [allMessages, setAllMessages] = useState([
     { message: "loading messages", username: "" },
   ]);
@@ -154,14 +157,14 @@ export default function Profile() {
   const [showInbox, setShowInbox] = useState(false);
   const handleCloseInbox = () => setShowInbox(false);
   const handleShowInbox = () => setShowInbox(true);
-  const handleLoadMessages = () =>{
+  const handleLoadMessages = () => {
     console.log(userData.messages);
     setAllMessages(userData.messages);
-  }
+  };
   //Inbox end
 
   return (
-    <div className="profile">
+    <div className="profile" style={{position:"absolute", top:"30%"}}>
       <Modal
         show={show}
         onHide={handleCloseReply}
@@ -217,13 +220,13 @@ export default function Profile() {
         <Modal.Footer></Modal.Footer>
       </Modal>
 
-      <div style={{ position: "absolute", left: "17%", top: "5%" }}>
+      <div style={{ position: "absolute", left: "17%", top: "25%" }}>
         <Button variant="outline-danger" size="lg" onClick={() => navigate(-1)}>
           <BsArrowBarLeft class="mb-1" />
         </Button>
       </div>
       {/* inboox button */}
-      <div style={{ position: "absolute", right: "17%", top: "5%" }}>
+      <div style={{ position: "absolute", right: "17%", top: "25%" }}>
         <Button
           size="lg"
           variant="outline-primary"
@@ -238,7 +241,7 @@ export default function Profile() {
       {/* edit profile button */}
       <div
         className="edit-profile"
-        style={{ position: "absolute", right: "17%", top: "15%" }}
+        style={{ position: "absolute", right: "17%", top: "35%" }}
       >
         <Button
           size="lg"
@@ -250,24 +253,26 @@ export default function Profile() {
           <BsPencilFill class="mb-1" />
         </Button>
       </div>
-      <Card style={{ height:"480px", width:"720px"}}>
-        <Card.Img src={img} style={{height:"480px",width:"720px"}} /> 
-        <Card.Body>
-          <Card.Title>
-            <h2>{userData.name}</h2>
-          </Card.Title>
-          <Card.Subtitle class="mb-2 text-muted">
-            <h4>{userData.location}</h4>
-          </Card.Subtitle>
-          <h4 align="center">
-            {userData.year} {userData.make} {userData.model}
-          </h4>
-          <br></br>
-          <Row xs={1} md={2} className="g-4">
+      <div className="profile-container">
+        <Card style={{ height: "480px", width: "720px" }}>
+          <Card.Img src={img} style={{ height: "480px", width: "720px" }} />
+          <Card.Body>
+            <Card.Title>
+              <h2>{userData.name}</h2>
+            </Card.Title>
+            <Card.Subtitle class="mb-2 text-muted">
+              <h4>{userData.location}</h4>
+            </Card.Subtitle>
+            <h4 align="center">
+              {userData.year} {userData.make} {userData.model}
+            </h4>
+            <br></br>
+            <Row xs={1} md={2} className="g-4">
               {likeUsersProfile}
-          </Row>
-        </Card.Body>
-      </Card>
+            </Row>
+          </Card.Body>
+        </Card>
+      </div>
     </div>
   );
 }
