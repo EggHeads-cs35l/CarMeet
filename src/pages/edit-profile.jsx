@@ -11,9 +11,6 @@ export default function EditProfile() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loc, setLocation] = useState("");
-  const [make, setMake] = useState("");
-  const [model, setModel] = useState("");
-  const [year, setYear] = useState("");
   const [mode, setMode] = useState(" Mode");
   //const [verifyData, setVerifyData] = useState("default");
   const navigate = useNavigate();
@@ -36,18 +33,6 @@ export default function EditProfile() {
       alert("Please enter your location");
       return false;
     }
-    if (make === "") {
-      alert("Pleaase enter your car's make");
-      return false;
-    }
-    if (model === "") {
-      alert("Please enter your car's model");
-      return false;
-    }
-    if (year === "") {
-      alert("Please enter your car's year");
-      return false;
-    }
     if (mode === " Mode") {
       alert("Please select a mode");
       return false;
@@ -62,10 +47,7 @@ export default function EditProfile() {
       name: name,
       password: password,
       location: loc,
-      year: year,
       mode: mode,
-      model: model,
-      make: make,
     };
     Update({ user: { username: userData.username }, updates: data });
     navigate("/profile", { state: userData });
@@ -85,7 +67,9 @@ export default function EditProfile() {
         <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Edit Profile</h3>
-            <h5 className="login-form-subtitle">Must enter all details</h5>
+            <h4 className="login-form-subtitle">Must enter all details</h4>
+            <h4 className="login-form-subtitle">Log in again to see changes</h4>
+            <br></br>
             <div className="text-center">
               Cancel edit?{" "}
               <span className="link-primary">
@@ -122,36 +106,6 @@ export default function EditProfile() {
                 placeholder={userData.location}
                 value={loc}
                 onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Change Make</label>
-              <input
-                type="text"
-                className="form-control mt-1"
-                placeholder={userData.make}
-                value={make}
-                onChange={(e) => setMake(e.target.value)}
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Change Model</label>
-              <input
-                type="text"
-                className="form-control mt-1"
-                placeholder={userData.model}
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Change Year</label>
-              <input
-                type="text"
-                className="form-control mt-1"
-                placeholder={userData.year}
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
