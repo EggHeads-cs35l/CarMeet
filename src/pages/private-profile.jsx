@@ -20,31 +20,50 @@ export default function Profile() {
   const location = useLocation();
   const userData = location.state;
 
-  const top = [];
-  let testData = { username: "none", name: "Find Some Friends" };
 
-  if (userData.likes == null) {
-    for (let i = 0; i < 4; i++) {
-      top.push(testData);
+
+  const top = []
+  let testData = {username: "none", name: "Find Some Friends"}
+
+
+  if (userData.likes == null){
+    for (let i = 0; i < 4; i++){
+      top.push(testData)
     }
-  } else {
-    const likes = userData.likes.reverse();
-    for (let i = 0; i < 4; i++) {
-      Search(setData, { username: likes[i] });
-      if (data == null) {
-        top.push(testData);
-      } else {
-        top.push(data);
+  }
+  else{
+    const likes = userData.likes.reverse()
+    for (let i = 0; i < 4; i++){
+      Search(setData ,{username: likes[i]})
+      if(data==null){
+        top.push(testData)
+      }else{
+        top.push(data)
       }
     }
   }
-  function clickable(inData) {
-    if (inData.username == "none") {
-      return;
-    } else {
-      return navigate("/view", { state: inData });
+  console.log(userData)
+  console.log(top)
+  function clickable(inData){
+    if(inData.username == "none"){
+      return
+    }
+    else{
+      return navigate("/view", {state: inData})
     }
   }
+
+  function clickable(inData) {
+    if (inData === null || inData.username == "none") {
+      return
+    }
+    else {
+      // return navigate("/view", { state: inData })
+    }
+  }
+
+  // end of likes
+
   //reply stuff
   const [show, setShow] = useState(false);
   const handleCloseReply = () => setShow(false);
@@ -74,16 +93,11 @@ export default function Profile() {
       setAllMessages(data[0].messages);
     }
   }, [data]);
-  const [allMessages, setAllMessages] = useState([
-    { message: "loading messages", username: "" },
-  ]);
-  const messages = [
-    { message: "Sick car bro", username: "John" },
-    { message: "Damn.", username: "Jane" },
-    { message: "LOL", username: "George" },
-  ];
-  const listMessages = allMessages.map((message) => (
-    <Card key={message.username.toString()}>
+  const [allMessages, setAllMessages] = useState([{message: 'loading messages', username: ''}])
+  const messages = [{message: 'Sick car bro', username: 'John'}, {message: 'Damn.', username: 'Jane'}, {message: 'LOL', username: 'George'}];
+  const listMessages = allMessages.map(message =>
+
+      <Card key={message.username.toString()}>
       <Card.Body>{message.message}</Card.Body>
 
       <footer align="right">{"- " + message.username}</footer>
@@ -196,20 +210,17 @@ export default function Profile() {
             {userData.year} {userData.make} {userData.model}
           </h4>
           <br></br>
-          <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <Col>
-                <Card onClick={clickable(top[idx])}>
-                  <Card.Img
-                    variant="top"
-                    src="https://picsum.photos/1080/720/"
-                  />
-                  <Card.Body>
-                    <Card.Title>{top[idx].name}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+            {/* <Row xs={1} md={2} className='g-4'>
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <Col>
+                  {likeUsersProfile[idx]}
+                </Col>
+              ))}
+            </Row> */}
+          <Row xs={1} md={2} className='g-4'>
+            <React.Suspense fallback='Loading...'>
+              {likeUsersProfile}
+            </React.Suspense>
           </Row>
         </Card.Body>
       </Card>
