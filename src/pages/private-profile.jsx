@@ -81,7 +81,7 @@ export default function Profile() {
         loadLikeProfiles();
       } else {
         Search(setLikeUsers, {
-          username: { $regex: regex, $options: "i" },
+          username: { $regex: regex },
         });
       }
     } // (likeUsers !== null)
@@ -91,6 +91,7 @@ export default function Profile() {
 
       if (likeUsers_buf.length < 4)
         for (var i = 0; i < length; i++) likeUsers_buf.push(testData);
+      else likeUsers_buf = likeUsers_buf.slice(0, 4);
 
       loadLikeProfiles();
       console.log(likeUsers);
