@@ -19,8 +19,14 @@ export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
+<<<<<<< HEAD
 
   const img = generate_decoded_image(userData.img1);
+=======
+  const img = `data:` + userData.img1.contentType + `;base64,` + btoa(
+    userData.img1.data.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
+ );
+>>>>>>> 02ea0edaa63ae8fb917994b649d7211025b8d410
 
   // Like users stuff
 
