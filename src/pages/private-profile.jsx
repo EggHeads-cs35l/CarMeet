@@ -57,7 +57,7 @@ export default function Profile() {
           <div id={userInfo.username}>
             <Col>
               <Card onClick={() => { clickable(userInfo) }}>
-                <Card.Img variant="top" src={generate_decoded_image(userInfo.img1)} width={250} height={250} />
+                <Card.Img variant="top" src={generate_decoded_image(userInfo.img1)} style={{height:"480px",width:"720px"}} />
                 <Card.Body>
                   <Card.Title>{userInfo.name}</Card.Title>
                 </Card.Body>
@@ -261,9 +261,8 @@ export default function Profile() {
           <BsPencilFill class="mb-1" />
         </Button>
       </div>
-      <Card style={{ width: "35rem", height: "auto" }}>
-        {/*TODO: convert buffer to jpg/png and export*/}
-        <Card.Img src={img} width={1080} height={720} />
+      <Card style={{ height:"480px", width:"720px"}}>
+        <Card.Img src={img} style={{height:"480px",width:"720px"}} /> 
         <Card.Body>
           <Card.Title>
             <h2>{userData.name}</h2>
@@ -275,17 +274,8 @@ export default function Profile() {
             {userData.year} {userData.make} {userData.model}
           </h4>
           <br></br>
-          {/* <Row xs={1} md={2} className='g-4'>
-              {Array.from({ length: 4 }).map((_, idx) => (
-                <Col>
-                  {likeUsersProfile[idx]}
-                </Col>
-              ))}
-            </Row> */}
           <Row xs={1} md={2} className="g-4">
-            <React.Suspense fallback="Loading...">
               {likeUsersProfile}
-            </React.Suspense>
           </Row>
         </Card.Body>
       </Card>
