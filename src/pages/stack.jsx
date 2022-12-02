@@ -87,6 +87,7 @@ export default function Stack() {
               year={userInfo.year}
               make={userInfo.make}
               model={userInfo.model}
+              img1={userInfo.img1}
             />
           </div>
         );
