@@ -20,6 +20,7 @@ import { userData } from "./login";
 import "./style/stack.css";
 import Modal from 'react-bootstrap/Modal';
 import { Update } from "../Database_api/API.js";
+import { Spinner } from "react-bootstrap";
 
 export var auto_complete_tree = new Trie();
 export var sorted_profile_stack = new PriorityQueue();
@@ -136,6 +137,12 @@ export default function Stack() {
   };
   const dislike = () => {
     console.log("dislike");
+
+    if (stackUsers.length) {
+      topProfile = stackUsers.pop();
+      let d = document.getElementById(topProfile.username);
+      d.parentNode.removeChild(d);
+    }
   };
 
   //modal stuff SEND MESSAGE
