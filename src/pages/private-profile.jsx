@@ -15,7 +15,6 @@ import generate_decoded_image from "../components/image_decoder.js";
 import Modal from "react-bootstrap/Modal";
 
 export default function Profile() {
-  const [data, setData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const userData = location.state;
@@ -133,25 +132,13 @@ export default function Profile() {
 
   //const messages = userData.messages;
 
-  useEffect(() => {
-    if (data == null) {
-      Search(setData, { username: "aasd" });
-    } else {
-      console.log("HEY");
-      console.log(data);
-      console.log(data[0].messages);
-      setAllMessages(data[0].messages);
-    }
-  }, [data]);
+
 
   const [allMessages, setAllMessages] = useState([
     { message: "loading messages", username: "" },
   ]);
-  const messages = [
-    { message: "Sick car bro", username: "John" },
-    { message: "Damn.", username: "Jane" },
-    { message: "LOL", username: "George" },
-  ];
+  console.log("HEY");
+
   const listMessages = allMessages.map((message) => (
     <Card key={message.username.toString()}>
       <Card.Body>{message.message}</Card.Body>
@@ -165,10 +152,12 @@ export default function Profile() {
 
   //inbox stuff
   const [showInbox, setShowInbox] = useState(false);
-
-  const fetchMessages = () => Search(setData, { username: "aasd" });
   const handleCloseInbox = () => setShowInbox(false);
   const handleShowInbox = () => setShowInbox(true);
+  const handleLoadMessages = () =>{
+    console.log(userData.messages);
+    setAllMessages(userData.messages);
+  }
   //Inbox end
 
   return (
@@ -240,7 +229,7 @@ export default function Profile() {
           variant="outline-primary"
           onClick={(event) => {
             handleShowInbox();
-            fetchMessages();
+            handleLoadMessages();
           }}
         >
           <BsFillInboxesFill class="mb-1" />
