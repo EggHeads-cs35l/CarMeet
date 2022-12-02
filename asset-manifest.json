@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/car-meet/static/css/main.b0cc489d.css",
+    "main.js": "/car-meet/static/js/main.45f9d448.js",
+    "static/media/img1.png": "/car-meet/static/media/img1.7160447d2ab1db579c0c.png",
+    "index.html": "/car-meet/index.html",
+    "main.b0cc489d.css.map": "/car-meet/static/css/main.b0cc489d.css.map",
+    "main.45f9d448.js.map": "/car-meet/static/js/main.45f9d448.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b0cc489d.css",
+    "static/js/main.45f9d448.js"
+  ]
+}
