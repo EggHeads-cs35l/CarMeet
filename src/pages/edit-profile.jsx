@@ -145,7 +145,7 @@ export default function EditProfile() {
           height: "auto",
         }}
       >
-        <form className="login-form">
+        <form className="login-form" onSubmit={handlesubmit}>
           <div className="login-form-content">
             <h3 className="login-form-title">Edit Profile</h3>
             <h5 className="login-form-subtitle">Must enter all details</h5>
