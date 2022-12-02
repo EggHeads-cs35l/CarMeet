@@ -173,7 +173,7 @@ export default function Profile() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Reply</Modal.Title>
+          <Modal.Title>Reply to {currentRecipent}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form>
