@@ -266,7 +266,7 @@ export default function Profile() {
         <Card.Img src={img} width={1080} height={720} />
         <Card.Body>
           <Card.Title>
-            <h2>{userData.username}</h2>
+            <h2>{userData.name}</h2>
           </Card.Title>
           <Card.Subtitle class="mb-2 text-muted">
             <h4>{userData.location}</h4>
