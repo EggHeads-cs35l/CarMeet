@@ -118,9 +118,8 @@ export default function Stack() {
           username: { username: data.username },
           updates: {
             $push: {
-              likes: {
-                username: topProfile.username
-              }
+              likes: 
+                topProfile.username,
             }
           }
         }
