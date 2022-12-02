@@ -1,6 +1,6 @@
 import axios from "axios";
 import FormData from "form-data";
-const IP = "164.67.81.148"
+const IP = "169.232.244.82"
 const login = (props, setData) =>{
    axios.post("http://" + IP + ":4000/app/login", props)
    .then((response) => {

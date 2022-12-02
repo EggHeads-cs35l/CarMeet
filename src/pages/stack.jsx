@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -74,12 +74,10 @@ export default function Stack() {
 
   const [currentProfile, setCurrentProfile] = useState([]);
 
-  let topProfile;
+  const topProfile = useRef(undefined);
 
   useEffect(() => {
     async function loadStackProfiles() {
-      topProfile = stackUsers[-1];
-
       const componentPromises = stackUsers.map(async (userInfo) => {
         const View = (
           <div id={userInfo.username}>
@@ -99,6 +97,8 @@ export default function Stack() {
       Promise.all(componentPromises).then(setCurrentProfile);
     }
 
+
+
     if (stackUsers == null) {
       console.log("trd==");
       console.log(regex);
@@ -110,10 +110,10 @@ export default function Stack() {
         username: { $nin: data.username },
       });
     } // (stackUsers !== null)
-    else if (topProfile === undefined) {
+    else if (topProfile.current === undefined) {
       loadStackProfiles();
-      topProfile = stackUsers[-1];
-      console.log(topProfile);
+      topProfile.current = stackUsers.pop();
+      console.log(topProfile.current);
       console.log(stackUsers);
     }
   }, [stackUsers]);
@@ -123,22 +123,18 @@ export default function Stack() {
     console.log("like");
     console.log(stackUsers);
 
-    if (topProfile === undefined)
-      topProfile = stackUsers[-1];
-
-    console.log(topProfile);
-
     if (stackUsers.length) {
-      topProfile = stackUsers.pop();
-      let d = document.getElementById(topProfile.username);
+      let d = document.getElementById(topProfile.current.username);
       d.parentNode.removeChild(d);
+      topProfile.current = stackUsers.pop();
+      console.log(topProfile.current);
     } else return;
 
     Update({
       user: { username: data.username },
       updates: {
         $push: {
-          likes: topProfile.username,
+          likes: topProfile.current.username,
         },
       },
     });
@@ -147,9 +143,9 @@ export default function Stack() {
     console.log("dislike");
 
     if (stackUsers.length) {
-      topProfile = stackUsers.pop();
-      let d = document.getElementById(topProfile.username);
+      let d = document.getElementById(topProfile.current.username);
       d.parentNode.removeChild(d);
+      topProfile.current = stackUsers.pop();
     }
   };
 
@@ -162,7 +158,7 @@ export default function Stack() {
   const handleSend = () => {
     alert("message sent! You'll receive a notification in your inbox once they respond.");
     Update({
-      user: { username: topProfile.username },
+      user: { username: topProfile.current.username },
       updates: {
         $push: {
           messages: {
