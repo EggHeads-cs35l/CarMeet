@@ -41,6 +41,14 @@
   font-weight: 800;
 }
 
+.login-form-subtitle {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 16px;
+  color: rgb(219, 23, 23);
+  font-weight: 450;
+}
+
 label {
   font-size: 14px;
   font-weight: 600;

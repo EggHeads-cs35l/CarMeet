@@ -211,7 +211,6 @@ export default function Signup(props) {
                 accept=".jpeg, .png"
                 alt="image of car"
                 className="form-control mt-1"
-                placeholder="e.g Jane Doe"
                 onChange={(e) => verifyImage(e.target)}
               />
             </div>
