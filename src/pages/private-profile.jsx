@@ -16,6 +16,7 @@ import "./style/profile.css";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const [pageLoad, setLoad] = useState(true);
   const location = useLocation();
   const [userData,setUserData] = useState(location.state);
   const [showInbox, setShowInbox] = useState(false);
@@ -30,7 +31,7 @@ export default function Profile() {
   const [likeUsersProfile, setLikeProfile] = useState([]);
 
   var likes = userData.likes;
-  likes = likes.reverse();
+  likes = likes.reverse();  
   console.log(userData.likes);
 
   var regex = "^(";
@@ -45,8 +46,12 @@ export default function Profile() {
   console.log(regex);
 
   var likeUsers_buf;
-
   useEffect(() => {
+    if (pageLoad){
+      login({username: userData.username, password: userData.password}, setUserData);
+      setLoad(false)
+      return
+    }
     console.log("Likeusers value changed");
     console.log(likeUsers);
 
@@ -283,8 +288,3 @@ export default function Profile() {
   );
 }
 
-class George extends Component {
-  render() {
-    return <div>card html</div>;
-  }
-}

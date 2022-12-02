@@ -119,9 +119,11 @@ export default function Stack() {
   }, [stackUsers]);
 
   const navigate = useNavigate();
-  const like = () => {
-    console.log("like");
-    console.log(stackUsers);
+  const like = () => {  
+    if (currentProfile.length == 0){
+      alert("You sure about that? We are still loading the profile")
+      return
+    }
 
     if (stackUsers.length) {
       let d = document.getElementById(topProfile.current.username);
@@ -131,7 +133,10 @@ export default function Stack() {
     } else return;
 
     Update({
-      user: { username: data.username },
+      user: { 
+        username: data.username,
+        likes:  { $ne: topProfile.current.username }
+      },
       updates: {
         $push: {
           likes: topProfile.current.username,
@@ -140,12 +145,19 @@ export default function Stack() {
     });
   };
   const dislike = () => {
+    if (currentProfile.length == 0){
+      alert("Dont't you wanna give this cutie a chance?")
+      return
+    }
     console.log("dislike");
 
-    if (stackUsers.length) {
+    if (stackUsers.length > 1) {
       let d = document.getElementById(topProfile.current.username);
       d.parentNode.removeChild(d);
       topProfile.current = stackUsers.pop();
+    }
+    else{
+      alert("Don't like the cuties we shown you? Try again later");
     }
   };
 
@@ -154,7 +166,16 @@ export default function Stack() {
   const [msgContent, setMsgContent] = useState("");
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => 
+  {
+    if (currentProfile.length == 0){
+      alert("Give it a moment, and you will have all the time in the world to talk")
+      return
+    }
+    else{
+      setShow(true);
+    }
+  }
   const handleSend = () => {
     alert("message sent! You'll receive a notification in your inbox once they respond.");
     Update({
