@@ -229,7 +229,7 @@ export default function Stack() {
               variant="outline-primary"
               size="lg"
               onClick={() => navigate("/profile", { state: data })}
-              style={{ position: "absolute", left: "73%", top: "16.5%" }}
+              style={{ position: "absolute", left: "77%", top: "16.5%" }}
             >
               <BsFillPersonFill class="mb-1" />
             </Button>
@@ -239,7 +239,7 @@ export default function Stack() {
               variant="outline-primary"
               size="lg"
               onClick={handleShow}
-              style={{ position: "absolute", left: "73%", top: "78%" }}
+              style={{ position: "absolute", left: "77%", top: "78%" }}
             >
               <BsFillChatTextFill class="mb-1" />
             </Button>
@@ -249,7 +249,7 @@ export default function Stack() {
             <div className="container" id="stack">{currentProfile}</div>
           </React.Suspense>
         </div>
-        <div style={{ position: "absolute", left: "78%", top: "50%" }}>
+        <div style={{ position: "absolute", left: "82%", top: "50%" }}>
           <Button variant="outline-success" size="lg" onClick={like}>
             <BsCheckLg class="mb-1" />
           </Button>

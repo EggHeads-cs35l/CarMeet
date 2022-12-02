@@ -18,7 +18,7 @@ const ProfilePublic = (props) => {
       }}
     >
       <Card >
-        <Card.Img src={generate_decoded_image(props.img1)} style={{height:"480px",width:"720px"}}/>
+        <Card.Img src={generate_decoded_image(props.img1)} style={{height:"480px",width:"854px"}}/>
         <Card.Body>
           <Card.Title>
             <h2>{props.name}</h2>

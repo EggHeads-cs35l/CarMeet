@@ -7,7 +7,7 @@ export default function View() {
   const value = location.state;
   return (
     <div>
-      <ProfilePublic className="profile" name={value.name} state={value.state} year={value.year} make={value.make} model={value.model}  />
+      <ProfilePublic className="profile" name={value.name} state={value.state} year={value.year} make={value.make} model={value.model} img1={value.img1} />
     </div>
   )
 }

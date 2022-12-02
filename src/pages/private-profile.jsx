@@ -255,8 +255,8 @@ export default function Profile() {
         </Button>
       </div>
       <div className="profile-container">
-        <Card style={{ height: "480px", width: "720px" }}>
-          <Card.Img src={img} style={{ height: "480px", width: "720px" }} />
+        <Card style={{ height: "480px", width: "854px" }}>
+          <Card.Img src={img} style={{ height: "480px", width: "854px" }} />
           <Card.Body>
             <Card.Title>
               <h2>{userData.name}</h2>

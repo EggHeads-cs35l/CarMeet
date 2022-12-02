@@ -50,6 +50,7 @@ export default function ({ placeholder, data }) {
         <div className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             const getProfile = () => {
+              console.log(value);
               return(navigate('/view', {state: value}));
             };
             return (
