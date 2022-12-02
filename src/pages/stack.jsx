@@ -125,9 +125,11 @@ export default function Stack() {
       return
     }
 
+    // Remove the profile render
+    let d = document.getElementById(topProfile.current.username);
+    d.parentNode.removeChild(d);
+
     if (stackUsers.length) {
-      let d = document.getElementById(topProfile.current.username);
-      d.parentNode.removeChild(d);
       topProfile.current = stackUsers.pop();
       console.log(topProfile.current);
     } else return;
@@ -151,9 +153,11 @@ export default function Stack() {
     }
     console.log("dislike");
 
-    if (stackUsers.length > 1) {
-      let d = document.getElementById(topProfile.current.username);
-      d.parentNode.removeChild(d);
+    // Remove the profile render
+    let d = document.getElementById(topProfile.current.username);
+    d.parentNode.removeChild(d);
+
+    if (stackUsers.length) {
       topProfile.current = stackUsers.pop();
     }
     else{
