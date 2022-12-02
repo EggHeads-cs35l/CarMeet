@@ -92,7 +92,7 @@ export default function Stack() {
         return View;
       });
       if (topProfile === undefined) {
-        topProfile = stackUsers[-1];
+        // topProfile = stackUsers.pop();
         Promise.all(componentPromises).then(setCurrentProfile);
       }
     }
@@ -110,6 +110,8 @@ export default function Stack() {
     } // (stackUsers !== null)
     else {
       loadStackProfiles();
+      topProfile = stackUsers.pop();
+      console.log(topProfile);
       console.log(stackUsers);
     }
   }, [stackUsers]);
