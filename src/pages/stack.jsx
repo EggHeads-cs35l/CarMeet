@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+
 import {
   BsCheckLg,
   BsFillChatTextFill,
@@ -151,7 +152,7 @@ export default function Stack() {
   const handleSend = () => {
     Update({
       user: { username: "aasd" },
-      updates: { 
+      updates: {
         $push: {
           messages: {
             username: "tejas",
@@ -165,6 +166,11 @@ export default function Stack() {
   //modal stuff end
   return (
     <div class="container" width="auto" style={{ overflow: "hidden" }}>
+      <div className="spinner">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
       <Modal
         show={show}
         onHide={handleClose}
@@ -229,7 +235,7 @@ export default function Stack() {
           </div>
           {/* true stack */}
           <React.Suspense fallback={<Spinner />}>
-            <div className="container">{currentProfile}</div>
+            <div className="container" id="stack">{currentProfile}</div>
           </React.Suspense>
         </div>
         <div style={{ position: "absolute", left: "78%", top: "50%" }}>
