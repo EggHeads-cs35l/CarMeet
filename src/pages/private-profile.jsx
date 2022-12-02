@@ -105,7 +105,7 @@ export default function Profile() {
         Reply
       </Button>
     </Card>
-  ));
+  );
 
   //inbox stuff
   const [showInbox, setShowInbox] = useState(false);
