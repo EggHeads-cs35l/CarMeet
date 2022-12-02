@@ -14,6 +14,9 @@ const login = (props, setData) =>{
             mode: response.data.mode,
             model: response.data.model,
             make: response.data.make,
+            name: response.data.name,
+            message: response.data.message,
+            likes: response.data.likes,
          };
          setData(userData)
       }
