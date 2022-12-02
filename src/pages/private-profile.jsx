@@ -80,7 +80,7 @@ export default function Profile() {
       console.log("Reading likeUsers from the db...");
       console.log(regex);
 
-      if (regex === "^$") {
+      if (regex === "^()$") {
         likeUsers_buf = [];
         for (var i = 0; i < 4; i++) {
           likeUsers_buf.push(testData);

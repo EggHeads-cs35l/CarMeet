@@ -49,6 +49,12 @@
   font-weight: 450;
 }
 
+.imageWarning {
+  font-size: 14px;
+  color: rgb(219, 23, 23);
+  font-weight: 300;
+}
+
 label {
   font-size: 14px;
   font-weight: 600;

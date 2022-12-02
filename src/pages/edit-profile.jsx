@@ -10,7 +10,6 @@ import { Update } from "../Database_api/API.js";
 export default function EditProfile() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [img, setImg] = useState(null);
   const [loc, setLocation] = useState("");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
@@ -49,82 +48,20 @@ export default function EditProfile() {
       alert("Please enter your car's year");
       return false;
     }
-    if (img === null) {
-      alert("Please upload a picture of your car");
-      return false;
-    }
     if (mode === " Mode") {
       alert("Please select a mode");
       return false;
     }
     return true;
   };
-  const verifyImage = async (img) => {
-    // img is the HTMLelement containing the image
-
-    // const resultElement = document.getElementById('result');
-    // resultElement.innerText = 'Loading CNN model...';
-    let url = URL.createObjectURL(img.files[0]); // create an Object URL
-    let image_data = new Image(); // create a temp. image object
-
-    image_data.onload = function () {
-      // handle async image loading
-      URL.revokeObjectURL(url); // free memory held by Object URL
-    };
-
-    image_data.src = url;
-    image_data.width = 224;
-    image_data.height = 224;
-
-    console.log("Loading CNN model...");
-
-    const imageModel = new CarNoCar();
-    console.time("Loading of model");
-    await imageModel.load();
-    console.timeEnd("Loading of model");
-    const pixels = tf.browser.fromPixels(image_data);
-    //const results = imageModel.execute(pixels);
-    console.time("First prediction");
-    let result = imageModel.predict(pixels);
-    const topK = imageModel.getTopKClasses(result);
-    console.timeEnd("First prediction");
-
-    // resultElement.innerText = '';
-    let ML_result_buf = "";
-
-    /* Output */
-    topK.forEach((x) => {
-      // resultElement.innerText += `${x.value.toFixed(3)}: ${x.label}\n`;
-      ML_result_buf += `${x.value.toFixed(3)}: ${x.label}\n`;
-    });
-
-    /* Check if is car */
-    let target_label = "car";
-    let is_valid_image = false;
-
-    console.log(topK[0]["label"]);
-    if (topK[0]["label"] === target_label) {
-      setImg(img.files[0]);
-      is_valid_image = true;
-    }
-
-    // If not a valid car image
-    if (!is_valid_image) {
-      //console.log("Not a car");
-      alert("Please input an image of a car");
-      // UI changes to notify the user
-    }
-
-    imageModel.dispose();
-  };
   const handlesubmit = (e) => {
     e.preventDefault();
     if (!verify()) return;
+
     const data = {
       name: name,
       password: password,
       location: loc,
-      img1: img,
       year: year,
       mode: mode,
       model: model,
@@ -152,8 +89,8 @@ export default function EditProfile() {
             <div className="text-center">
               Cancel edit?{" "}
               <span className="link-primary">
-                <u onClick={() => navigate("/profile", { state: userData })}>
-                  Back to Profile
+                <u onClick={() => navigate("/stack", { state: userData })}>
+                  Back to Stack
                 </u>
               </span>
             </div>
@@ -177,18 +114,6 @@ export default function EditProfile() {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className="form-group mt-3">
-              <label>Change Profile Image (16:9 recommended)</label>
-              <input
-                type="file"
-                accept=".jpeg, .png"
-                alt="image of car"
-                className="form-control mt-1"
-                onChange={(e) => verifyImage(e.target)}
-              />
-            </div>
-            {/*or image submit^^ */}
-
             <div className="form-group mt-3">
               <label>Change Location (State)</label>
               <input
