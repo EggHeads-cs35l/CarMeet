@@ -19,31 +19,97 @@ export default function Profile() {
   const location = useLocation();
   const userData = location.state;
 
+  // Like users stuff 
 
+  let testData = { username: "none", name: "Find Some Friends" }
 
-  const top = []
-  let testData = {username: "none", name: "Find Some Friends"}
+  const [likeUsers, setLikeUsers] = useState(null);
+  const [likeUsersProfile, setLikeProfile] = useState([]);
 
+  var likes = userData.likes;
+  // likes = likes.reverse();
+  console.log(userData.likes);
 
-  if (userData.likes == null){
-    for (let i = 0; i < 4; i++){
-      top.push(testData)
+  // if (userData.likes == null) {
+  //   likeUsers = []
+  //   for (var i = 0; i < 4; i++)
+  //     likeUsers.push(testData);
+  // } 
+
+  var regex = '^(';
+  for (var i = 0; i < ((likes.length > 4) ? 4 : likes.length); i++) {
+    if (i != 0) regex += '|';
+    regex += '(';
+    regex += likes[i];
+    regex += ')';
+  } regex += ')$';
+
+  console.log(regex);
+
+  // TODO: test for cases when the user has less than 4 likes
+
+  var likeUsers_buf;
+
+  console.log("point 1");
+
+  useEffect(() => {
+    console.log("Likeusers value changed")
+    console.log(likeUsers)
+
+    async function loadLikeProfiles() {
+      const componentPromises = likeUsers_buf.map(async userInfo => {
+        const View = <div id={userInfo.username}>
+          <Col>
+            <Card onClick={clickable(userInfo)}>
+              <Card.Img
+                variant="top"
+                src="https://picsum.photos/1080/720/"
+              />
+              <Card.Body>
+                <Card.Title>{userInfo.name}</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        </div>
+        return View;
+      })
+      Promise.all(componentPromises).then(setLikeProfile);
+      console.log("All loaded from the db");
     }
-  }
-  else{
-    const likes = userData.likes.reverse()
-    for (let i = 0; i < 4; i++){
-      Search(setData ,{username: likes[i]})
-      if(data==null){
-        top.push(testData)
-      }else{
-        top.push(data)
+
+    if (likeUsers == null) {
+      console.log("Reading likeUsers from the db...")
+      console.log(regex)
+
+      if (regex === '^$') {
+        likeUsers_buf = [];
+        for (var i = 0; i < 4; i++) {
+          likeUsers_buf.push(testData);
+        }
+        loadLikeProfiles();
+      }
+
+      else {
+        Search(setLikeUsers, { username: { $regex: regex, $options: 'i'/*, $slice: 4*/ }})
       }
     }
-  }
-  console.log(userData)
-  console.log(top)
-  function clickable(inData){
+
+    else // (likeUsers !== null)
+    {
+      likeUsers_buf = likeUsers;
+      let length = 4 - likeUsers_buf.length;
+
+      if (likeUsers_buf.length < 4)
+        for (var i = 0; i < length; i++)
+          likeUsers_buf.push(testData);
+
+      loadLikeProfiles();
+      console.log(likeUsers);
+    }
+
+  }, [likeUsers]);
+
+  function _clickable(inData){
     if(inData.username == "none"){
       return
     }
@@ -51,6 +117,18 @@ export default function Profile() {
       return navigate("/view", {state: inData})
     }
   }
+
+  function clickable(inData) {
+    if (inData === null || inData.username == "none") {
+      return
+    }
+    else {
+      // return navigate("/view", { state: inData })
+    }
+  }
+
+  // end of likes
+
   //reply stuff
   const [show, setShow] = useState(false);
   const handleCloseReply = () => setShow(false);
@@ -85,6 +163,7 @@ export default function Profile() {
     }
 
   }, [data]);
+
   const [allMessages, setAllMessages] = useState([{message: 'loading messages', username: ''}])
   const messages = [{message: 'Sick car bro', username: 'John'}, {message: 'Damn.', username: 'Jane'}, {message: 'LOL', username: 'George'}];
   const listMessages = allMessages.map(message =>
@@ -187,20 +266,17 @@ export default function Profile() {
           </Card.Subtitle>
           <h4 align="center">{userData.year} {userData.make} {userData.model}</h4>
           <br></br>
-          <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <Col>
-                <Card onClick={clickable(top[idx])}>
-                  <Card.Img
-                    variant="top"
-                    src="https://picsum.photos/1080/720/"
-                  />
-                  <Card.Body>
-                    <Card.Title>{top[idx].name}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+            {/* <Row xs={1} md={2} className='g-4'>
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <Col>
+                  {likeUsersProfile[idx]}
+                </Col>
+              ))}
+            </Row> */}
+          <Row xs={1} md={2} className='g-4'>
+            <React.Suspense fallback='Loading...'>
+              {likeUsersProfile}
+            </React.Suspense>
           </Row>
         </Card.Body>
       </Card>

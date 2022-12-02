@@ -111,28 +111,26 @@ export default function Stack() {
   const navigate = useNavigate();
   const like = () => {
     console.log("like");
-
-    if (topProfile !== undefined) {
-      Update(
-        {
-          username: { username: data.username },
-          updates: {
-            $push: {
-              likes: 
-                topProfile.username,
-            }
-          }
-        }
-
-      )
-    }
+    console.log(topProfile);
 
     if (stackUsers.length) {
       topProfile = stackUsers.pop();
       let d = document.getElementById(topProfile.username);
       d.parentNode.removeChild(d);
-    }
+    } else return;
 
+    Update(
+      {
+        username: { username: data.username },
+        updates: {
+          $push: {
+            likes: 
+              topProfile.username,
+          }
+        }
+      }
+
+    )
   };
   const dislike = () => {
     console.log("dislike");
