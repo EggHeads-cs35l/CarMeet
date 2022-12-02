@@ -1,11 +1,10 @@
-import React, { useState } from "react";
 import * as tf from "@tensorflow/tfjs";
+import React, { useEffect, useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Update } from "../Database_api/API.js";
 import { CarNoCar } from "../components/model/model.jsx";
-import { useEffect } from "react";
+import { Update } from "../Database_api/API.js";
 
 /*TODO: set placeholders to be the current values of the user's profile*/
 export default function EditProfile() {

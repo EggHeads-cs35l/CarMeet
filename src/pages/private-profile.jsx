@@ -31,14 +31,8 @@ export default function Profile() {
   const [likeUsersProfile, setLikeProfile] = useState([]);
 
   var likes = userData.likes;
-  // likes = likes.reverse();
+  likes = likes.reverse();
   console.log(userData.likes);
-
-  // if (userData.likes == null) {
-  //   likeUsers = []
-  //   for (var i = 0; i < 4; i++)
-  //     likeUsers.push(testData);
-  // }
 
   var regex = "^(";
   for (var i = 0; i < (likes.length > 4 ? 4 : likes.length); i++) {
@@ -51,11 +45,8 @@ export default function Profile() {
 
   console.log(regex);
 
-  // TODO: test for cases when the user has less than 4 likes
 
   var likeUsers_buf;
-
-  console.log("point 1");
 
   useEffect(() => {
     console.log("Likeusers value changed");
@@ -66,7 +57,7 @@ export default function Profile() {
         const View = (
           <div id={userInfo.username}>
             <Col>
-              <Card onClick={clickable(userInfo)}>
+              <Card onClick={() => { clickable(userInfo) }}>
                 <Card.Img variant="top" src="https://picsum.photos/1080/720/" />
                 <Card.Body>
                   <Card.Title>{userInfo.name}</Card.Title>
@@ -93,7 +84,7 @@ export default function Profile() {
         loadLikeProfiles();
       } else {
         Search(setLikeUsers, {
-          username: { $regex: regex, $options: "i" /*, $slice: 4*/ },
+          username: { $regex: regex },
         });
       }
     } // (likeUsers !== null)
@@ -103,23 +94,16 @@ export default function Profile() {
 
       if (likeUsers_buf.length < 4)
         for (var i = 0; i < length; i++) likeUsers_buf.push(testData);
+      else likeUsers_buf = likeUsers_buf.slice(0, 4);
 
       loadLikeProfiles();
       console.log(likeUsers);
     }
   }, [likeUsers]);
 
-  function _clickable(inData) {
-    if (inData.username == "none") {
-      return;
-    } else {
-      return navigate("/view", { state: inData });
-    }
-  }
-
   function clickable(inData) {
     if (inData === null || inData.username == "none") {
-      return navigate("/stack", {state: inData })
+      return navigate("/stack", {state: userData })
     }
     else {
       return navigate("/view", { state: inData })
