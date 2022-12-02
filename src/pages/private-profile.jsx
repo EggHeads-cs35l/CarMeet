@@ -143,7 +143,7 @@ export default function Profile() {
     { message: "loading messages", username: "" },
   ]);
 
-  const listMessages = allMessages.map((message) => (
+  const listMessages = allMessages.length != 0 ? allMessages.map((message) => (
     <Card key={message.username.toString()}>
       <Card.Body>{message.message}</Card.Body>
 
@@ -152,7 +152,9 @@ export default function Profile() {
         Reply
       </Button>
     </Card>
-  ));
+  )) : <Card key={"empty inbox"}>
+    <Card.Body>{"Your inbox is empty. Looks like no one has sent you a message yet."}</Card.Body>
+  </Card>;
 
   //inbox stuff
   const [showInbox, setShowInbox] = useState(false);
@@ -255,8 +257,8 @@ export default function Profile() {
         </Button>
       </div>
       <div className="profile-container">
-        <Card style={{ height: "480px", width: "720px" }}>
-          <Card.Img src={img} style={{ height: "480px", width: "720px" }} />
+        <Card style={{ height: "480px", width: "854px" }}>
+          <Card.Img src={img} style={{ height: "480px", width: "854px" }} />
           <Card.Body>
             <Card.Title>
               <h2>{userData.name}</h2>
