@@ -178,7 +178,7 @@ export default function EditProfile() {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Change Profile Image</label>
+              <label>Change Profile Image (16:9 recommended)</label>
               <input
                 type="file"
                 accept=".jpeg, .png"

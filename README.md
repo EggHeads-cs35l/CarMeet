@@ -17,8 +17,23 @@ Package Dependencies:
 - React
 - React-Bootstrap
 - Bootstrap
+- Socket.io
+- React-Icons
+- TensorFlow JS
 
-### Step 3: Test port
+### Step 3: Start local server
+In the 'Database_api/API.js' file: edit the "IP" variable to your current public IP address.
+
+Next, start the server by running the command:
+```sh
+node src/backend/server.js
+```
+This should display "Running" then "Connected". If it does not, you are likely missing dependencies (which you may have to install via npm).
+
+If the server port is already take, consider replacing the locations of the port number in the 'Database_api/API.js' file.
+
+
+### Step 4: Test port
 Run the command:
 ```sh
 npm start
