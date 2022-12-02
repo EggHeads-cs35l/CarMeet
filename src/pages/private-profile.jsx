@@ -109,21 +109,12 @@ export default function Profile() {
 
   }, [likeUsers]);
 
-  function _clickable(inData){
-    if(inData.username == "none"){
-      return
-    }
-    else{
-      return navigate("/view", {state: inData})
-    }
-  }
-
   function clickable(inData) {
     if (inData === null || inData.username == "none") {
-      return
+      return navigate("/stack", {state: inData })
     }
     else {
-      // return navigate("/view", { state: inData })
+      return navigate("/view", { state: inData })
     }
   }
 
