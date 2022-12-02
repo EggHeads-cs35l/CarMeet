@@ -57,7 +57,6 @@ router.post('/signup',upload.any(), (request, response) => {
  });
 
  router.post('/update', (request,response) => {
-   console.log(request.body)
    signupTemp.findOneAndUpdate(request.body.filter, request.body.updates)
    .then(() => {
       response.send("Success");
