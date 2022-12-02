@@ -160,13 +160,13 @@ export default function Stack() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSend = () => {
-    alert("message sent! You'll receive a notification in your inbox once they respond.")
+    alert("message sent! You'll receive a notification in your inbox once they respond.");
     Update({
-      user: { username: "matthewliu" },
+      user: { username: topProfile.username },
       updates: {
         $push: {
           messages: {
-            username: "matthewliu",
+            username: data.username,
             message: document.getElementById("Textarea").value,
           },
         },
