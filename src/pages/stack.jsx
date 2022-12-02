@@ -91,10 +91,7 @@ export default function Stack() {
         );
         return View;
       });
-      if (topProfile === undefined) {
-        // topProfile = stackUsers.pop();
-        Promise.all(componentPromises).then(setCurrentProfile);
-      }
+      Promise.all(componentPromises).then(setCurrentProfile);
     }
 
     if (stackUsers == null) {
@@ -108,7 +105,7 @@ export default function Stack() {
         username: { $nin: data.username },
       });
     } // (stackUsers !== null)
-    else {
+    else if (topProfile === undefined) {
       loadStackProfiles();
       topProfile = stackUsers.pop();
       console.log(topProfile);
@@ -128,7 +125,7 @@ export default function Stack() {
     } else return;
 
     Update({
-      username: { username: data.username },
+      user: { username: data.username },
       updates: {
         $push: {
           likes: topProfile.username,
@@ -154,7 +151,7 @@ export default function Stack() {
   const handleSend = () => {
     Update({
       user: { username: "aasd" },
-      updates: {
+      updates: { 
         $push: {
           messages: {
             username: "tejas",

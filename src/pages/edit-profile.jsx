@@ -130,7 +130,7 @@ export default function EditProfile() {
       model: model,
       make: make,
     };
-    Update({ username: { username: userData.username }, updates: data });
+    Update({ user: { username: userData.username }, updates: data });
     navigate("/profile", { state: userData });
   };
   console.log(userData);
