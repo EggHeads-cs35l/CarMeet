@@ -176,7 +176,7 @@ export default function Stack() {
             </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>x
+        <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
