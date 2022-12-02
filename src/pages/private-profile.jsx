@@ -11,13 +11,14 @@ import {
 } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import generate_decoded_image from "../components/image_decoder.js";
-import { Search, Update } from "../Database_api/API.js";
+import { Search, Update,login  } from "../Database_api/API.js";
 import "./style/profile.css";
 
 export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = location.state;
+  const [userData,setUserData] = useState(location.state);
+  const [showInbox, setShowInbox] = useState(false);
 
   const img = generate_decoded_image(userData.img1);
 
@@ -103,7 +104,10 @@ export default function Profile() {
       loadLikeProfiles();
       console.log(likeUsers);
     }
-  }, [likeUsers]);
+
+    if (showInbox)
+      login({username: userData.username, password: userData.password}, setUserData);
+  }, [likeUsers, showInbox, userData]);
 
   function clickable(inData) {
     if (inData === null || inData.username == "none") {
@@ -157,7 +161,6 @@ export default function Profile() {
   </Card>;
 
   //inbox stuff
-  const [showInbox, setShowInbox] = useState(false);
   const handleCloseInbox = () => setShowInbox(false);
   const handleShowInbox = () => setShowInbox(true);
   const handleLoadMessages = () => {
