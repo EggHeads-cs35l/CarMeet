@@ -17,8 +17,8 @@ const ProfilePublic = (props) => {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <Card style={{ width: "45rem", height: "auto" }}>
-        <Card.Img src={generate_decoded_image(props.img1)} width={1080} height={720}/>
+      <Card >
+        <Card.Img src={generate_decoded_image(props.img1)} style={{height:"480px",width:"720px"}}/>
         <Card.Body>
           <Card.Title>
             <h2>{props.name}</h2>
